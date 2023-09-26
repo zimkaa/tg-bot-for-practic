@@ -1,18 +1,17 @@
 from typing import List
 
 from pyrogram.client import Client
-from pyrogram.types import CallbackQuery
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from src.telegram.base import CallbackQueryEndpoint
-from src.telegram.base import PrivateCommandEndpoint
-from src.telegram.templates import text as templates_text
 from src.config import constants
+from src.telegram.base import CallbackQueryEndpoint, PrivateCommandEndpoint
+from src.telegram.templates import text as templates_text
 
 
 class StartEndpoint(PrivateCommandEndpoint):
     commands: List[str] = [
         constants.START,
+        constants.MENU,
     ]
 
     async def handle(
@@ -20,7 +19,7 @@ class StartEndpoint(PrivateCommandEndpoint):
         client: Client,
         message: Message,
     ) -> None:  # noqa: U100
-        template = templates_text.START
+        template = templates_text.MENU
         await client.send_message(
             chat_id=message.from_user.id,
             text=template,
@@ -36,7 +35,7 @@ class StartEndpoint(PrivateCommandEndpoint):
 
 
 class StartCallbackQueryEndpoint(CallbackQueryEndpoint):
-    callback_query_name: str = constants.START
+    callback_query_name: str = constants.MENU
 
     async def handle(
         self,

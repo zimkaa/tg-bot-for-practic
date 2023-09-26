@@ -26,7 +26,7 @@ class FethiyeEndpoint(PrivateCommandEndpoint):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.START),
+                        InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.MENU),
                         InlineKeyboardButton(text=constants.PAYMENT_INFO, callback_data=constants.PAYMENT),
                     ]
                 ],
@@ -49,7 +49,7 @@ class FethiyeCallbackQueryEndpoint(CallbackQueryEndpoint):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.START),
+                        InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.MENU),
                         InlineKeyboardButton(text=constants.PAYMENT_INFO, callback_data=constants.PAYMENT),
                     ]
                 ],

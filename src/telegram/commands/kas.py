@@ -25,12 +25,11 @@ class KasEndpoint(PrivateCommandEndpoint):
         template = templates_text.KAS
         await client.send_message(
             chat_id=message.from_user.id,
-            client=client,
-            message=template,
+            text=template,
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.START),
+                        InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.MENU),
                         InlineKeyboardButton(text=constants.PAYMENT_INFO, callback_data=constants.PAYMENT),
                     ]
                 ],
@@ -53,7 +52,7 @@ class KasCallbackQueryEndpoint(CallbackQueryEndpoint):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.START),
+                        InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.MENU),
                         InlineKeyboardButton(text=constants.PAYMENT_INFO, callback_data=constants.PAYMENT),
                     ]
                 ],

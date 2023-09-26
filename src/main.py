@@ -1,6 +1,7 @@
 from time import sleep
 
-from dependency_injector.wiring import Provide, inject
+from dependency_injector.wiring import Provide
+from dependency_injector.wiring import inject
 from pyrogram import idle
 from pyrogram.client import Client as TelegramClient
 from pyrogram.errors import FloodWait
@@ -8,11 +9,16 @@ from pyrogram.types import BotCommand
 
 from src.config import constants
 from src.deps.main import MainContainer
-from src.telegram.commands.fethiye import FethiyeCallbackQueryEndpoint, FethiyeEndpoint
-from src.telegram.commands.kas import KasCallbackQueryEndpoint, KasEndpoint
-from src.telegram.commands.payments_info import PaymentsCallbackQueryEndpoint, PaymentsEndpoint
-from src.telegram.commands.special_offer import OfferCallbackQueryEndpoint, OfferEndpoint
-from src.telegram.commands.start import StartCallbackQueryEndpoint, StartEndpoint
+from src.telegram.commands.fethiye import FethiyeCallbackQueryEndpoint
+from src.telegram.commands.fethiye import FethiyeEndpoint
+from src.telegram.commands.kas import KasCallbackQueryEndpoint
+from src.telegram.commands.kas import KasEndpoint
+from src.telegram.commands.payments_info import PaymentsCallbackQueryEndpoint
+from src.telegram.commands.payments_info import PaymentsEndpoint
+
+# from src.telegram.commands.special_offer import OfferCallbackQueryEndpoint, OfferEndpoint
+from src.telegram.commands.start import StartCallbackQueryEndpoint
+from src.telegram.commands.start import StartEndpoint
 
 
 @inject
@@ -31,7 +37,7 @@ async def main(telegram: TelegramClient = Provide[MainContainer.telegram]) -> No
 
     await telegram.start()
     commands = [
-        BotCommand(constants.START, constants.MAIN_MENU),
+        BotCommand(constants.MENU, constants.MAIN_MENU),
         BotCommand(constants.KAS, constants.GUIDE_KAS),
         BotCommand(constants.FETHIYE, constants.GUIDE_FETHIYE),
         # BotCommand("payments_info", "Условия оплаты"),

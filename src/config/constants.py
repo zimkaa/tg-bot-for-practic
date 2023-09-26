@@ -1,13 +1,13 @@
 from typing import Final
 
-
 START: Final[str] = "start"
+MENU: Final[str] = "menu"
 MAIN_MENU: Final[str] = "Основное меню"
 
-KAS: Final[str] = "kas" 
+KAS: Final[str] = "kas"
 GUIDE_KAS: Final[str] = "Гайд Каш"
 
-FETHIYE: Final[str] = "fethiye" 
+FETHIYE: Final[str] = "fethiye"
 GUIDE_FETHIYE: Final[str] = "Гайд Фетхие"
 
 PAYMENT: Final[str] = "payment"

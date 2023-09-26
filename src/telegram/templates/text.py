@@ -1,7 +1,6 @@
 from typing import Final
 
-
-START: Final[str] = r"""<b>👋 Приветствую! 🌍✨</b>
+MENU: Final[str] = r"""<b>👋 Приветствую! 🌍✨</b>
 
 <b>! 🤝🌟</b>
 
