@@ -1,10 +1,7 @@
 from typing import List
 
 from pyrogram.client import Client
-from pyrogram.types import CallbackQuery
-from pyrogram.types import InlineKeyboardButton
-from pyrogram.types import InlineKeyboardMarkup
-from pyrogram.types import Message
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from src.config import constants
 from src.telegram.base import PrivateCommandEndpoint
@@ -30,7 +27,7 @@ class FethiyeEndpoint(PrivateCommandEndpoint):
                 [
                     [
                         InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.START),
-                        InlineKeyboardButton(text=constants.GUIDE_KAS, callback_data=constants.KAS),
+                        InlineKeyboardButton(text=constants.PAYMENT_INFO, callback_data=constants.PAYMENT),
                     ]
                 ],
             ),
@@ -53,7 +50,7 @@ class FethiyeCallbackQueryEndpoint(CallbackQueryEndpoint):
                 [
                     [
                         InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.START),
-                        InlineKeyboardButton(text=constants.GUIDE_KAS, callback_data=constants.KAS),
+                        InlineKeyboardButton(text=constants.PAYMENT_INFO, callback_data=constants.PAYMENT),
                     ]
                 ],
             ),

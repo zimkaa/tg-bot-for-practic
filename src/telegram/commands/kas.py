@@ -1,10 +1,14 @@
 from typing import List
 
 from pyrogram.client import Client
-from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
+from pyrogram.types import CallbackQuery
+from pyrogram.types import InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup
+from pyrogram.types import Message
 
 from src.config import constants
-from src.telegram.base import CallbackQueryEndpoint, PrivateCommandEndpoint
+from src.telegram.base import CallbackQueryEndpoint
+from src.telegram.base import PrivateCommandEndpoint
 from src.telegram.templates import text as templates_text
 
 
@@ -19,7 +23,7 @@ class KasEndpoint(PrivateCommandEndpoint):
         message: Message,
     ) -> None:  # noqa: U100
         template = templates_text.KAS
-        await self._send_message(
+        await client.send_message(
             chat_id=message.from_user.id,
             client=client,
             message=template,
@@ -27,7 +31,7 @@ class KasEndpoint(PrivateCommandEndpoint):
                 [
                     [
                         InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.START),
-                        InlineKeyboardButton(text=constants.GUIDE_FETHIYE, callback_data=constants.FETHIYE),
+                        InlineKeyboardButton(text=constants.PAYMENT_INFO, callback_data=constants.PAYMENT),
                     ]
                 ],
             ),
@@ -50,7 +54,7 @@ class KasCallbackQueryEndpoint(CallbackQueryEndpoint):
                 [
                     [
                         InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.START),
-                        InlineKeyboardButton(text=constants.GUIDE_FETHIYE, callback_data=constants.FETHIYE),
+                        InlineKeyboardButton(text=constants.PAYMENT_INFO, callback_data=constants.PAYMENT),
                     ]
                 ],
             ),

@@ -1,23 +1,6 @@
 from typing import Final
 
 
-START_OLD = r"""<b>👋 Funny Body text! 🌍✨</b>
-
-<b>! 🤝🌟</b>
-
-🏄‍♂️🎲 . 🌊🍽️
-
-<b>Here's how it works:</b>
-1️⃣ .
-2️⃣ .
-3️⃣ .
-4️⃣ . 🗣️🤩
-
-🌐✈️ ! 🌟🌍🍴
-
-🤖🙌 <b>Happy adventuring!</b>
-"""
-
 START: Final[str] = r"""<b>👋 Приветствую! 🌍✨</b>
 
 <b>! 🤝🌟</b>
@@ -69,39 +52,6 @@ FETHIYE: Final[str] = r"""<b>👋 FETHIYE! 🌍✨</b>
 🤖🙌 <b>Happy adventuring!</b>
 """
 
-CATALOG = r"""<b>👋 CATALOG text! 🌍✨</b>
-
-<b>! 🤝🌟</b>
-
-🏄‍♂️🎲 . 🌊🍽️
-
-<b>Here's how it works:</b>
-1️⃣ .
-2️⃣ .
-3️⃣ .
-4️⃣ . 🗣️🤩
-
-🌐✈️ ! 🌟🌍🍴
-
-🤖🙌 <b>Happy adventuring!</b>
-"""
-
-DELIVERY_INFO = r"""<b>👋 DELIVERY_INFO! 🌍✨</b>
-
-<b>! 🤝🌟</b>
-
-🏄‍♂️🎲 . 🌊🍽️
-
-<b>Here's how it works:</b>
-1️⃣ .
-2️⃣ 
-3️⃣ 
-4️⃣ . 🗣️🤩
-
-🌐✈️ 
-🤖🙌 <b>Happy adventuring!</b>
-"""
-
 PAYMENTS_INFO = r"""<b>👋 PAYMENTS_INFO! 🌍✨</b>
 
 <b>! 🤝🌟</b>
@@ -119,19 +69,69 @@ PAYMENTS_INFO = r"""<b>👋 PAYMENTS_INFO! 🌍✨</b>
 🤖🙌 <b>Happy adventuring!</b>
 """
 
-SPECIAL_OFFER = r"""<b>👋 SPECIAL_OFFER! 🌍✨</b>
+# START_OLD = r"""<b>👋 Funny Body text! 🌍✨</b>
 
-<b>! 🤝🌟</b>
+# <b>! 🤝🌟</b>
 
-🏄‍♂️🎲 . 🌊🍽️
+# 🏄‍♂️🎲 . 🌊🍽️
 
-<b>Here's how it works:</b>
-1️⃣ .
-2️⃣ .
-3️⃣ .
-4️⃣ . 🗣️🤩
+# <b>Here's how it works:</b>
+# 1️⃣ .
+# 2️⃣ .
+# 3️⃣ .
+# 4️⃣ . 🗣️🤩
 
-🌐✈️ ! 🌟🌍🍴
+# 🌐✈️ ! 🌟🌍🍴
 
-🤖🙌 <b>Happy adventuring!</b>
-"""
+# 🤖🙌 <b>Happy adventuring!</b>
+# """
+
+# SPECIAL_OFFER = r"""<b>👋 SPECIAL_OFFER! 🌍✨</b>
+
+# <b>! 🤝🌟</b>
+
+# 🏄‍♂️🎲 . 🌊🍽️
+
+# <b>Here's how it works:</b>
+# 1️⃣ .
+# 2️⃣ .
+# 3️⃣ .
+# 4️⃣ . 🗣️🤩
+
+# 🌐✈️ ! 🌟🌍🍴
+
+# 🤖🙌 <b>Happy adventuring!</b>
+# """
+
+# CATALOG = r"""<b>👋 CATALOG text! 🌍✨</b>
+
+# <b>! 🤝🌟</b>
+
+# 🏄‍♂️🎲 . 🌊🍽️
+
+# <b>Here's how it works:</b>
+# 1️⃣ .
+# 2️⃣ .
+# 3️⃣ .
+# 4️⃣ . 🗣️🤩
+
+# 🌐✈️ ! 🌟🌍🍴
+
+# 🤖🙌 <b>Happy adventuring!</b>
+# """
+
+# DELIVERY_INFO = r"""<b>👋 DELIVERY_INFO! 🌍✨</b>
+
+# <b>! 🤝🌟</b>
+
+# 🏄‍♂️🎲 . 🌊🍽️
+
+# <b>Here's how it works:</b>
+# 1️⃣ .
+# 2️⃣ 
+# 3️⃣ 
+# 4️⃣ . 🗣️🤩
+
+# 🌐✈️ 
+# 🤖🙌 <b>Happy adventuring!</b>
+# """
