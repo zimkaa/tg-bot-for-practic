@@ -1,0 +1,16 @@
+
+black
+mypy
+isort
+pytest
+pylint
+
+
+
+black
+mypy
+isort
+pytest
+pylint
+
+
