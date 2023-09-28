@@ -32,7 +32,7 @@ class PaymentCallbackQueryEndpoint(CallbackQueryEndpoint):
         callback_query: CallbackQuery,
     ) -> None:  # noqa: U100
         await client.answer_callback_query(callback_query.id)
-        query = callback_query.data.replace("_fethiye", "").replace("_kas", "")
+        query = callback_query.data.replace(f"_{constants.SOUTH}", "").replace(f"_{constants.KAS}", "")
         city = callback_query.data.split("_")[-1]
         template = templates_strategy[query]
         await callback_query.message.reply(

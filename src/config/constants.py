@@ -1,6 +1,5 @@
 from typing import Final
 
-
 START: Final[str] = "start"
 MENU: Final[str] = "menu"
 MAIN_MENU: Final[str] = "Основное меню"
@@ -10,8 +9,8 @@ BACK: Final[str] = "Вернуться назад"
 KAS: Final[str] = "kas"
 GUIDE_KAS: Final[str] = "Гайд Каш"
 
-FETHIYE: Final[str] = "fethiye"
-GUIDE_FETHIYE: Final[str] = "Гайд по югу Турции"
+SOUTH: Final[str] = "south"
+GUIDE_SOUTH: Final[str] = "Гайд по югу Турции"
 
 PAYMENT: Final[str] = "payment"
 PAYMENT_TEXT: Final[str] = "Оплатить"

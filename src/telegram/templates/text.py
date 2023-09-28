@@ -35,7 +35,7 @@ KAS: Final[str] = r"""<b>👋 KAS! 🌍✨</b>
 🤖🙌 <b>Happy adventuring!</b>
 """  # fmt: skip
 
-FETHIYE: Final[str] = r"""<b>👋 FETHIYE! 🌍✨</b>
+SOUTH: Final[str] = r"""<b>👋 SOUTH! 🌍✨</b>
 
 <b>! 🤝🌟</b>
 

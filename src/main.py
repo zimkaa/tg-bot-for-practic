@@ -9,13 +9,13 @@ from pyrogram.types import BotCommand
 
 from src.config import constants
 from src.deps.main import MainContainer
-from src.telegram.commands.fethiye import FethiyeCallbackQueryEndpoint
-from src.telegram.commands.fethiye import FethiyeEndpoint
 from src.telegram.commands.kas import KasCallbackQueryEndpoint
 from src.telegram.commands.kas import KasEndpoint
 from src.telegram.commands.paid import PaidCallbackQueryEndpoint
 from src.telegram.commands.payment import PaymentCallbackQueryEndpoint
 from src.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
+from src.telegram.commands.south import FethiyeCallbackQueryEndpoint
+from src.telegram.commands.south import FethiyeEndpoint
 
 # from src.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
 # from src.telegram.commands.special_offer import OfferCallbackQueryEndpoint, OfferEndpoint
@@ -44,7 +44,7 @@ async def main(telegram: TelegramClient = Provide[MainContainer.telegram]) -> No
     commands = [
         BotCommand(constants.MENU, constants.MAIN_MENU),
         BotCommand(constants.KAS, constants.GUIDE_KAS),
-        BotCommand(constants.FETHIYE, constants.GUIDE_FETHIYE),
+        BotCommand(constants.SOUTH, constants.GUIDE_SOUTH),
     ]
     await telegram.set_bot_commands(commands=commands)
     await telegram.set_chat_menu_button()
