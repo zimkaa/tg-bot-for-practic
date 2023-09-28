@@ -154,6 +154,23 @@ PAID: Final[str] = r"""<b>👋 PAID! 🌍✨</b>
 🤖🙌 <b>Happy adventuring!</b>
 """  # fmt: skip
 
+ADMIN: Final[str] = r"""<b>👋 ADMIN! 🌍✨</b>
+
+<b>! 🤝🌟</b>
+
+🏄‍♂️🎲 . 🌊🍽️
+
+<b>Here's how it works:</b>
+1️⃣ .
+2️⃣ .
+3️⃣ .
+4️⃣ . 🗣️🤩
+
+🌐✈️ ! 🌟🌍🍴
+
+🤖🙌 <b>Happy adventuring!</b>
+"""  # fmt: skip
+
 # START_OLD = r"""<b>👋 Funny Body text! 🌍✨</b>
 
 # <b>! 🤝🌟</b>

@@ -19,10 +19,12 @@ class Settings(BaseSettings):
     debug: bool = False
     logger: logging.Logger = logging.getLogger("SalesLogger")
 
+    # Telegram settings:
+    telegram_admin_id: int
     telegram_bot_name: str
     telegram_bot_token: str
-    telegram_api_id: int
-    telegram_api_hash: str
+    # telegram_api_id: int
+    # telegram_api_hash: str
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 

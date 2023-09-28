@@ -17,9 +17,9 @@ class MainContainer(containers.DeclarativeContainer):
     telegram = providers.Factory(
         TelegramClient,
         name=config.telegram_bot_name,  # type: ignore[attr-defined]
-        api_id=config.telegram_api_id,  # type: ignore[attr-defined]
-        api_hash=config.telegram_api_hash,  # type: ignore[attr-defined]
         bot_token=config.telegram_bot_token,  # type: ignore[attr-defined]
+        # api_id=config.telegram_api_id,  # type: ignore[attr-defined]
+        # api_hash=config.telegram_api_hash,  # type: ignore[attr-defined]
         # TODO: Store in database
         in_memory=False,
     )
