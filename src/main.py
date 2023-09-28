@@ -13,9 +13,11 @@ from src.telegram.commands.fethiye import FethiyeCallbackQueryEndpoint
 from src.telegram.commands.fethiye import FethiyeEndpoint
 from src.telegram.commands.kas import KasCallbackQueryEndpoint
 from src.telegram.commands.kas import KasEndpoint
-from src.telegram.commands.payments_info import PaymentsCallbackQueryEndpoint
-from src.telegram.commands.payments_info import PaymentsEndpoint
+from src.telegram.commands.paid import PaidCallbackQueryEndpoint
+from src.telegram.commands.payment import PaymentCallbackQueryEndpoint
+from src.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
 
+# from src.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
 # from src.telegram.commands.special_offer import OfferCallbackQueryEndpoint, OfferEndpoint
 from src.telegram.commands.start import StartCallbackQueryEndpoint
 from src.telegram.commands.start import StartEndpoint
@@ -25,14 +27,17 @@ from src.telegram.commands.start import StartEndpoint
 async def main(telegram: TelegramClient = Provide[MainContainer.telegram]) -> None:
     """Run bot."""
     telegram.add_handler(StartEndpoint().to_telegram_handler())
+
     telegram.add_handler(KasEndpoint().to_telegram_handler())
     telegram.add_handler(FethiyeEndpoint().to_telegram_handler())
-    telegram.add_handler(PaymentsEndpoint().to_telegram_handler())
+    # telegram.add_handler(PaymentsEndpoint().to_telegram_handler())
     # telegram.add_handler(OfferEndpoint().to_telegram_handler())
 
+    telegram.add_handler(PaymentCallbackQueryEndpoint().to_telegram_handler())
+    telegram.add_handler(PaymentsInfoCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(KasCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(FethiyeCallbackQueryEndpoint().to_telegram_handler())
-    telegram.add_handler(PaymentsCallbackQueryEndpoint().to_telegram_handler())
+    telegram.add_handler(PaidCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(StartCallbackQueryEndpoint().to_telegram_handler())
 
     await telegram.start()
@@ -40,8 +45,6 @@ async def main(telegram: TelegramClient = Provide[MainContainer.telegram]) -> No
         BotCommand(constants.MENU, constants.MAIN_MENU),
         BotCommand(constants.KAS, constants.GUIDE_KAS),
         BotCommand(constants.FETHIYE, constants.GUIDE_FETHIYE),
-        # BotCommand("payments_info", "Условия оплаты"),
-        # BotCommand("delivery_info", "Условия доставки"),
     ]
     await telegram.set_bot_commands(commands=commands)
     await telegram.set_chat_menu_button()

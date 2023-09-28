@@ -22,3 +22,4 @@ my.db
 # test file
 test.py
 *.session
+*.session-journal

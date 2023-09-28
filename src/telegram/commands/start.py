@@ -1,10 +1,14 @@
 from typing import List
 
 from pyrogram.client import Client
-from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
+from pyrogram.types import CallbackQuery
+from pyrogram.types import InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup
+from pyrogram.types import Message
 
 from src.config import constants
-from src.telegram.base import CallbackQueryEndpoint, PrivateCommandEndpoint
+from src.telegram.base import CallbackQueryEndpoint
+from src.telegram.base import PrivateCommandEndpoint
 from src.telegram.templates import text as templates_text
 
 
@@ -43,7 +47,7 @@ class StartCallbackQueryEndpoint(CallbackQueryEndpoint):
         callback_query: CallbackQuery,
     ) -> None:  # noqa: U100
         await client.answer_callback_query(callback_query.id)
-        template = templates_text.PAYMENTS_INFO
+        template = templates_text.MENU
         await callback_query.message.reply(
             text=template,
             reply_markup=InlineKeyboardMarkup(

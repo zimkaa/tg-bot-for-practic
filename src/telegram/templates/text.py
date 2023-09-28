@@ -1,5 +1,6 @@
 from typing import Final
 
+
 MENU: Final[str] = r"""<b>👋 Приветствую! 🌍✨</b>
 
 <b>! 🤝🌟</b>
@@ -15,7 +16,7 @@ MENU: Final[str] = r"""<b>👋 Приветствую! 🌍✨</b>
 🌐✈️ ! 🌟🌍🍴
 
 🤖🙌 <b>Happy adventuring!</b>
-"""
+"""  # fmt: skip
 
 KAS: Final[str] = r"""<b>👋 KAS! 🌍✨</b>
 
@@ -32,7 +33,7 @@ KAS: Final[str] = r"""<b>👋 KAS! 🌍✨</b>
 🌐✈️ ! 🌟🌍🍴
 
 🤖🙌 <b>Happy adventuring!</b>
-"""
+"""  # fmt: skip
 
 FETHIYE: Final[str] = r"""<b>👋 FETHIYE! 🌍✨</b>
 
@@ -49,9 +50,9 @@ FETHIYE: Final[str] = r"""<b>👋 FETHIYE! 🌍✨</b>
 🌐✈️ ! 🌟🌍🍴
 
 🤖🙌 <b>Happy adventuring!</b>
-"""
+"""  # fmt: skip
 
-PAYMENTS_INFO = r"""<b>👋 PAYMENTS_INFO! 🌍✨</b>
+PAYMENTS_INFO: Final[str] = r"""<b>👋 PAYMENTS_INFO! 🌍✨</b>
 
 <b>! 🤝🌟</b>
 
@@ -66,7 +67,92 @@ PAYMENTS_INFO = r"""<b>👋 PAYMENTS_INFO! 🌍✨</b>
 🌐✈️ ! 🌟🌍🍴
 
 🤖🙌 <b>Happy adventuring!</b>
-"""
+"""  # fmt: skip
+
+PAYMENTS_CRYPTO_INFO: Final[str] = r"""<b>👋 PAYMENTS_CRYPTO_INFO! 🌍✨</b>
+
+<b>! 🤝🌟</b>
+
+🏄‍♂️🎲 . 🌊🍽️
+
+<b>Here's how it works:</b>
+1️⃣ .
+2️⃣ .
+3️⃣ .
+4️⃣ . 🗣️🤩
+
+🌐✈️ ! 🌟🌍🍴
+
+🤖🙌 <b>Happy adventuring!</b>
+"""  # fmt: skip
+
+PAYMENTS_RUS_INFO: Final[str] = r"""<b>👋 PAYMENTS_RUS_INFO! 🌍✨</b>
+
+<b>! 🤝🌟</b>
+
+🏄‍♂️🎲 . 🌊🍽️
+
+<b>Here's how it works:</b>
+1️⃣ .
+2️⃣ .
+3️⃣ .
+4️⃣ . 🗣️🤩
+
+🌐✈️ ! 🌟🌍🍴
+
+🤖🙌 <b>Happy adventuring!</b>
+"""  # fmt: skip
+
+PAYMENTS_TRY_INFO: Final[str] = r"""<b>👋 PAYMENTS_TRY_INFO! 🌍✨</b>
+
+<b>! 🤝🌟</b>
+
+🏄‍♂️🎲 . 🌊🍽️
+
+<b>Here's how it works:</b>
+1️⃣ .
+2️⃣ .
+3️⃣ .
+4️⃣ . 🗣️🤩
+
+🌐✈️ ! 🌟🌍🍴
+
+🤖🙌 <b>Happy adventuring!</b>
+"""  # fmt: skip
+
+PAYMENTS_U_MONEY_INFO: Final[str] = r"""<b>👋 PAYMENTS_U_MONEY_INFO! 🌍✨</b>
+
+<b>! 🤝🌟</b>
+
+🏄‍♂️🎲 . 🌊🍽️
+
+<b>Here's how it works:</b>
+1️⃣ .
+2️⃣ .
+3️⃣ .
+4️⃣ . 🗣️🤩
+
+🌐✈️ ! 🌟🌍🍴
+
+🤖🙌 <b>Happy adventuring!</b>
+"""  # fmt: skip
+
+PAID: Final[str] = r"""<b>👋 PAID! 🌍✨</b>
+
+<b>! 🤝🌟</b>
+
+🏄‍♂️🎲 . 🌊🍽️
+
+<b>Here's how it works:</b>
+1️⃣ .
+2️⃣ .
+3️⃣ .
+4️⃣ . 🗣️🤩
+
+🌐✈️ ! 🌟🌍🍴
+
+🤖🙌 <b>Happy adventuring!</b>
+"""  # fmt: skip
 
 # START_OLD = r"""<b>👋 Funny Body text! 🌍✨</b>
 
@@ -127,10 +213,10 @@ PAYMENTS_INFO = r"""<b>👋 PAYMENTS_INFO! 🌍✨</b>
 
 # <b>Here's how it works:</b>
 # 1️⃣ .
-# 2️⃣ 
-# 3️⃣ 
+# 2️⃣
+# 3️⃣
 # 4️⃣ . 🗣️🤩
 
-# 🌐✈️ 
+# 🌐✈️
 # 🤖🙌 <b>Happy adventuring!</b>
 # """

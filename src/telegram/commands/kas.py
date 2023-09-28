@@ -29,8 +29,10 @@ class KasEndpoint(PrivateCommandEndpoint):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
+                        InlineKeyboardButton(
+                            text=constants.PAYMENT_TEXT, callback_data=f"{constants.PAYMENT}_{constants.KAS}"
+                        ),
                         InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.MENU),
-                        InlineKeyboardButton(text=constants.PAYMENT_INFO, callback_data=constants.PAYMENT),
                     ]
                 ],
             ),
@@ -52,8 +54,10 @@ class KasCallbackQueryEndpoint(CallbackQueryEndpoint):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
+                        InlineKeyboardButton(
+                            text=constants.PAYMENT_TEXT, callback_data=f"{constants.PAYMENT}_{constants.KAS}"
+                        ),
                         InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.MENU),
-                        InlineKeyboardButton(text=constants.PAYMENT_INFO, callback_data=constants.PAYMENT),
                     ]
                 ],
             ),
