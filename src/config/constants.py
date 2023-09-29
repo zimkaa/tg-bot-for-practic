@@ -1,5 +1,6 @@
 from typing import Final
 
+
 START: Final[str] = "start"
 MENU: Final[str] = "menu"
 MAIN_MENU: Final[str] = "Основное меню"

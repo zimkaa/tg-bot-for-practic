@@ -2,18 +2,14 @@ from abc import ABC
 from logging import Logger
 from typing import Optional
 
-from dependency_injector.wiring import Provide, inject
+from dependency_injector.wiring import Provide
+from dependency_injector.wiring import inject
 from pyrogram.client import Client
 from pyrogram.filters import Filter
 from pyrogram.handlers.handler import Handler
-from pyrogram.types import (
-    ForceReply,
-    InlineKeyboardMarkup,
-    KeyboardButton,
-    Message,
-    ReplyKeyboardMarkup,
-    ReplyKeyboardRemove,
-)
+from pyrogram.types import KeyboardButton
+from pyrogram.types import Message
+from pyrogram.types import ReplyKeyboardMarkup
 
 from src.deps.main import MainContainer
 
@@ -34,7 +30,7 @@ class BaseEndpoint(ABC):
         raise NotImplementedError()
 
     @classmethod
-    def get_filters(cls) -> Optional[Filter]:
+    def get_filters(cls) -> Filter | None:
         return cls.filters
 
     async def _request_contacts(

@@ -1,6 +1,8 @@
 from typing import Optional
 
-from pyrogram.filters import Filter, forwarded, private
+from pyrogram.filters import Filter
+from pyrogram.filters import forwarded
+from pyrogram.filters import private
 
 from src.telegram.custom_filter import contact_filter
 

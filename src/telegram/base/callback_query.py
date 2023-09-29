@@ -1,9 +1,11 @@
 from pyrogram.client import Client
-from pyrogram.filters import Filter, create
+from pyrogram.filters import Filter
+from pyrogram.filters import create
 from pyrogram.handlers.callback_query_handler import CallbackQueryHandler
 from pyrogram.types import CallbackQuery
 
-from .custom_filters import filter_callback, filter_multi_callback
+from .custom_filters import filter_callback
+from .custom_filters import filter_multi_callback
 from .endpoint import BaseEndpoint
 
 
@@ -13,10 +15,11 @@ class CallbackQueryEndpoint(BaseEndpoint):
     def to_telegram_handler(self) -> CallbackQueryHandler:
         return CallbackQueryHandler(callback=self.callback, filters=self.get_filters())  # type: ignore
 
-    def get_filters(self) -> Filter | None:
-        if not self.callback_query_name:
+    @classmethod
+    def get_filters(cls) -> Filter | None:
+        if not cls.callback_query_name:
             return None
-        callback_filter = create(filter_callback, callback_query_name=self.callback_query_name)
+        callback_filter = create(filter_callback, callback_query_name=cls.callback_query_name)
         return callback_filter
 
     async def callback(
@@ -42,13 +45,14 @@ class CallbackQueryEndpoint(BaseEndpoint):
         callback_query: CallbackQuery,  # noqa: U100
     ) -> None:
         raise NotImplementedError()
-    
+
 
 class MultiCallbackQueryEndpoint(CallbackQueryEndpoint):
     multi_callback_query_name: list[str] | None = None
 
-    def get_filters(self) -> Filter | None:
-        if not self.callback_query_name:
+    @classmethod
+    def get_filters(cls) -> Filter | None:
+        if not cls.callback_query_name:
             return None
-        callback_filter = create(filter_multi_callback, callback_query_name=self.multi_callback_query_name)
+        callback_filter = create(filter_multi_callback, callback_query_name=cls.multi_callback_query_name)
         return callback_filter

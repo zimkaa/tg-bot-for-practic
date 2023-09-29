@@ -17,6 +17,8 @@ class PaymentsInfoCallbackQueryEndpoint(CallbackQueryEndpoint):
         callback_query: CallbackQuery,
     ) -> None:  # noqa: U100
         await client.answer_callback_query(callback_query.id)
+        if not isinstance(callback_query.data, str):
+            raise Exception("Callback query data is not str")
         city = callback_query.data.replace("payment_", "")
         template = templates_text.PAYMENTS_INFO
         await callback_query.message.reply(

@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  bot:
+    # build:
+    #   context: backend
+    #   target: development
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    secrets:
+      - db-password
+    environment:
+    - TELEGRAM_ADMIN_ID=${TELEGRAM_ADMIN_ID}
+    - TELEGRAM_BOT_NAME=${TELEGRAM_BOT_NAME}
+    - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+    - ENVIRONMENT=${ENVIRONMENT}
+    - TELEGRAM_API_ID=${TELEGRAM_API_ID}
+    - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}

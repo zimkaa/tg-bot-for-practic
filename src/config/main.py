@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     app_version: str = "0.1"
 
     # Project settings:
-    project_name: str = "SalesBody"
+    project_name: str = "SalesBot"
 
     # development / test / production
     environment: str = "development"
@@ -20,9 +20,9 @@ class Settings(BaseSettings):
     logger: logging.Logger = logging.getLogger("SalesLogger")
 
     # Telegram settings:
-    telegram_admin_id: int
-    telegram_bot_name: str
-    telegram_bot_token: str
+    telegram_admin_id: int = 5218682536
+    telegram_bot_name: str = "default_bot"
+    telegram_bot_token: str = "default_token"
     # telegram_api_id: int
     # telegram_api_hash: str
 

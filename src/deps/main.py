@@ -1,4 +1,5 @@
-from dependency_injector import containers, providers
+from dependency_injector import containers
+from dependency_injector import providers
 from pyrogram.client import Client as TelegramClient
 
 from src.config import settings
