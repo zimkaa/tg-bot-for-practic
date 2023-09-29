@@ -9,7 +9,9 @@ pydantic.BaseSettings = BaseSettings
 
 
 class Settings(BaseSettings):
-    app_version: str = "0.1"
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+
+    app_version: str = "0.1.0"
 
     # Project settings:
     project_name: str = "SalesBot"
@@ -25,8 +27,6 @@ class Settings(BaseSettings):
     telegram_bot_token: str = "default_token"
     # telegram_api_id: int
     # telegram_api_hash: str
-
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
 
 settings = Settings()

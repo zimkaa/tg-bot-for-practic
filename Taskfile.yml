@@ -34,7 +34,7 @@ tasks:
     cmds:
       - pre-commit run --all-files
 
-  run-bot:
+  run-local-test-bot:
     desc: Run telegram bot
     cmds:
       - python ./start.py
