@@ -1,7 +1,8 @@
 import asyncio
 
 from bot.deps.main import MainContainer
-from bot.main import main
+
+from .main import main
 
 
 if __name__ == "__main__":

@@ -7,20 +7,20 @@ from pyrogram.client import Client as TelegramClient
 from pyrogram.errors import FloodWait
 from pyrogram.types import BotCommand
 
-from src.config import constants
-from src.deps.main import MainContainer
-from src.telegram.commands.kas import KasCallbackQueryEndpoint
-from src.telegram.commands.kas import KasEndpoint
-from src.telegram.commands.paid import PaidCallbackQueryEndpoint
-from src.telegram.commands.payment import PaymentCallbackQueryEndpoint
-from src.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
-from src.telegram.commands.south import FethiyeCallbackQueryEndpoint
-from src.telegram.commands.south import FethiyeEndpoint
+from bot.config import constants
+from bot.deps.main import MainContainer
+from bot.telegram.commands.kas import KasCallbackQueryEndpoint
+from bot.telegram.commands.kas import KasEndpoint
+from bot.telegram.commands.paid import PaidCallbackQueryEndpoint
+from bot.telegram.commands.payment import PaymentCallbackQueryEndpoint
+from bot.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
+from bot.telegram.commands.south import FethiyeCallbackQueryEndpoint
+from bot.telegram.commands.south import FethiyeEndpoint
 
 # from src.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
 # from src.telegram.commands.special_offer import OfferCallbackQueryEndpoint, OfferEndpoint
-from src.telegram.commands.start import StartCallbackQueryEndpoint
-from src.telegram.commands.start import StartEndpoint
+from bot.telegram.commands.start import StartCallbackQueryEndpoint
+from bot.telegram.commands.start import StartEndpoint
 
 
 @inject

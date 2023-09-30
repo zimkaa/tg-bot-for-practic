@@ -1,15 +1,25 @@
-FROM python:3.11.5-slim-bookworm as builder
+FROM python:3.11.5-slim as builder
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    build-essential \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ARG ENVIRONMENT
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONHASHSEED=random
-ENV PIP_NO_CACHE_DIR=off
-ENV PIP_DISABLE_PIP_VERSION_CHECK=on
-ENV PIP_DEFAULT_TIMEOUT=100
-ENV POETRY_VERSION=1.6.1
-ENV ENVIRONMENT=${ENVIRONMENT}
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    ENVIRONMENT=${ENVIRONMENT} \
+    POETRY_VERSION=1.6.1 \
+    POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache
 
 RUN addgroup --system appgroup
 RUN adduser --system --shell /bin/sh --disabled-login --disabled-password --ingroup appgroup appuser
@@ -23,15 +33,14 @@ USER appuser
 RUN python -m venv /home/appuser/app/.venv
 ENV PATH="/home/appuser/app/.venv/bin:$PATH"
 
-RUN pip install "poetry==$POETRY_VERSION"
+RUN pip install --upgrade pip && pip install "poetry==$POETRY_VERSION"
 
 COPY poetry.lock pyproject.toml /home/appuser/app/
 
-RUN poetry config virtualenvs.create false \
-  && poetry install --only=main --no-interaction --no-ansi --no-root
+RUN poetry install --no-dev --no-interaction --no-ansi --no-root && rm -rf $POETRY_CACHE_DIR
 
 
-FROM python:3.11.5-slim-bookworm
+FROM python:3.11.5-slim as runtime
 
 RUN addgroup --system appgroup
 RUN adduser --system --shell /bin/sh --disabled-login --disabled-password --ingroup appgroup appuser
@@ -46,7 +55,5 @@ ENV PATH="/home/appuser/app/.venv/bin:$PATH"
 COPY --chown=appuser:appgroup ./src /home/appuser/app/
 
 COPY --chown=appuser:appgroup ./entrypoint.sh /home/appuser/app/
-
-EXPOSE 8000
 
 CMD ["./entrypoint.sh"]

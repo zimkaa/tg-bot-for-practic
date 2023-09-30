@@ -1,5 +1,7 @@
 version: "3"
 
+# dotenv: ['.env', '{{.ENV}}/.env.', '{{.HOME}}/.env']
+
 tasks:
   default:
     - task: help
@@ -38,6 +40,21 @@ tasks:
     desc: Run telegram bot
     cmds:
       - python ./start.py
+
+  build-docker-bot:
+    desc: Build docker container telegram bot
+    cmds:
+      - docker compose -f compose-dev.yaml up -d --build
+
+  run-docker-bot:
+    desc: Run docker container telegram bot
+    cmds:
+      - docker compose -f compose-dev.yaml up -d
+
+  stop-docker-bot:
+    desc: Stop docker container telegram bot
+    cmds:
+      - docker compose -f compose-dev.yaml down && docker network prune --force
 
   test:
     desc: Run tests

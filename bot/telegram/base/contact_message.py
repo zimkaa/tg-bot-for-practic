@@ -4,7 +4,7 @@ from pyrogram.filters import Filter
 from pyrogram.filters import forwarded
 from pyrogram.filters import private
 
-from src.telegram.custom_filter import contact_filter
+from bot.telegram.custom_filter import contact_filter
 
 from .message import MessageEndpoint
 
