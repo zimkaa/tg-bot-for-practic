@@ -35,6 +35,8 @@ KAS: Final[str] = r"""<b>👋 KAS! 🌍✨</b>
 🤖🙌 <b>Happy adventuring!</b>
 """  # fmt: skip
 
+PHOTO_PROBLEM: Final[str] = "Problem with send PHOTO"
+
 SOUTH: Final[str] = r"""<b>👋 SOUTH! 🌍✨</b>
 
 <b>! 🤝🌟</b>

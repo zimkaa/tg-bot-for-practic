@@ -17,8 +17,8 @@ from bot.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoin
 from bot.telegram.commands.south import FethiyeCallbackQueryEndpoint
 from bot.telegram.commands.south import FethiyeEndpoint
 
-# from src.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
-# from src.telegram.commands.special_offer import OfferCallbackQueryEndpoint, OfferEndpoint
+# from bot.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
+# from bot.telegram.commands.special_offer import OfferCallbackQueryEndpoint, OfferEndpoint
 from bot.telegram.commands.start import StartCallbackQueryEndpoint
 from bot.telegram.commands.start import StartEndpoint
 

@@ -39,7 +39,7 @@ tasks:
   run-local-test-bot:
     desc: Run telegram bot
     cmds:
-      - python ./start.py
+      - python ./run.py
 
   build-docker-bot:
     desc: Build docker container telegram bot
