@@ -11,14 +11,14 @@ from bot.telegram.templates import text as templates_text
 callback_strategy = {
     constants.RUS_PAYMENT: constants.RUS_PAID,
     constants.TRY_PAYMENT: constants.TRY_PAID,
-    constants.U_MONEY_PAYMENT: constants.U_MONEY_PAID,
+    # constants.U_MONEY_PAYMENT: constants.U_MONEY_PAID,
     constants.CRYPTO_PAYMENT: constants.CRYPTO_PAID,
 }
 
 templates_strategy = {
     constants.RUS_PAYMENT: templates_text.PAYMENTS_RUS_INFO,
     constants.TRY_PAYMENT: templates_text.PAYMENTS_TRY_INFO,
-    constants.U_MONEY_PAYMENT: templates_text.PAYMENTS_U_MONEY_INFO,
+    # constants.U_MONEY_PAYMENT: templates_text.PAYMENTS_U_MONEY_INFO,
     constants.CRYPTO_PAYMENT: templates_text.PAYMENTS_CRYPTO_INFO,
 }
 
@@ -37,6 +37,7 @@ class PaymentCallbackQueryEndpoint(CallbackQueryEndpoint):
         query = callback_query.data.replace(f"_{constants.SOUTH}", "").replace(f"_{constants.KAS}", "")
         city = callback_query.data.split("_")[-1]
         template = templates_strategy[query]
+        # TODO: add request file
         await callback_query.message.reply(
             text=template,
             reply_markup=InlineKeyboardMarkup(

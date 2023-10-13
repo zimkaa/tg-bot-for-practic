@@ -19,6 +19,46 @@ from bot.telegram.templates import text as templates_text
 class StartEndpoint(PrivateCommandEndpoint):
     commands: List[str] = [
         constants.START,
+    ]
+
+    @inject
+    async def handle(
+        self,
+        client: Client,
+        message: Message,
+        admin_id: str = Provide[MainContainer.config.telegram_admin_id],
+    ) -> None:  # noqa: U100
+        await client.send_message(
+            chat_id=message.from_user.id,
+            text=templates_text.START,
+        )
+        try:
+            await client.send_photo(
+                chat_id=message.from_user.id,
+                photo=photo_ids.START,
+            )
+        except Exception:
+            await client.send_message(
+                chat_id=admin_id,
+                text=templates_text.PHOTO_PROBLEM,
+            )
+        template = templates_text.MENU
+        await client.send_message(
+            chat_id=message.from_user.id,
+            text=template,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(text=constants.GUIDE_SOUTH, callback_data=constants.SOUTH),
+                        InlineKeyboardButton(text=constants.GUIDE_KAS, callback_data=constants.KAS),
+                    ]
+                ],
+            ),
+        )
+
+
+class MenuEndpoint(PrivateCommandEndpoint):
+    commands: List[str] = [
         constants.MENU,
     ]
 
@@ -54,7 +94,7 @@ class StartEndpoint(PrivateCommandEndpoint):
         )
 
 
-class StartCallbackQueryEndpoint(CallbackQueryEndpoint):
+class MenuCallbackQueryEndpoint(CallbackQueryEndpoint):
     callback_query_name: str = constants.MENU
 
     @inject

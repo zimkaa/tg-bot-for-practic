@@ -19,7 +19,8 @@ from bot.telegram.commands.south import FethiyeEndpoint
 
 # from bot.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
 # from bot.telegram.commands.special_offer import OfferCallbackQueryEndpoint, OfferEndpoint
-from bot.telegram.commands.start import StartCallbackQueryEndpoint
+from bot.telegram.commands.start import MenuCallbackQueryEndpoint
+from bot.telegram.commands.start import MenuEndpoint
 from bot.telegram.commands.start import StartEndpoint
 
 
@@ -28,6 +29,7 @@ async def main(telegram: TelegramClient = Provide[MainContainer.telegram]) -> No
     """Run bot."""
     telegram.add_handler(StartEndpoint().to_telegram_handler())
 
+    telegram.add_handler(MenuEndpoint().to_telegram_handler())
     telegram.add_handler(KasEndpoint().to_telegram_handler())
     telegram.add_handler(FethiyeEndpoint().to_telegram_handler())
     # telegram.add_handler(PaymentsEndpoint().to_telegram_handler())
@@ -38,7 +40,7 @@ async def main(telegram: TelegramClient = Provide[MainContainer.telegram]) -> No
     telegram.add_handler(KasCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(FethiyeCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(PaidCallbackQueryEndpoint().to_telegram_handler())
-    telegram.add_handler(StartCallbackQueryEndpoint().to_telegram_handler())
+    telegram.add_handler(MenuCallbackQueryEndpoint().to_telegram_handler())
 
     await telegram.start()
     commands = [

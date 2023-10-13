@@ -14,7 +14,7 @@ SOUTH: Final[str] = "south"
 GUIDE_SOUTH: Final[str] = "Гайд по югу Турции"
 
 PAYMENT: Final[str] = "payment"
-PAYMENT_TEXT: Final[str] = "Оплатить"
+PAYMENT_TEXT: Final[str] = "Оплатить 🤑"
 
 PAYMENT_INFO: Final[str] = "payment_info"
 

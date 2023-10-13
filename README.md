@@ -1,1 +1,11 @@
 # Python telegram bot for sales
+- [x] Instagram link
+- [ ] Service - Send to admin info about error
+- [ ] Photo
+- [ ] Screen pay card
+- [ ] Button Emoji
+- [ ] Delete all unnecessary
+- [ ] Add admin chatID
+- [ ] Start on new bot
+- [ ] Create universal script to get picture file_id number
+- [ ] Create universal script to get user ID
