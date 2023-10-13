@@ -52,7 +52,7 @@ COPY --chown=appuser:appgroup --from=builder /home/appuser/app/.venv /home/appus
 
 ENV PATH="/home/appuser/app/.venv/bin:$PATH"
 
-COPY --chown=appuser:appgroup ./bot /home/appuser/app/
+COPY --chown=appuser:appgroup ./bot /home/appuser/app/bot/
 
 COPY --chown=appuser:appgroup ./entrypoint.sh /home/appuser/app/
 
