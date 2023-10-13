@@ -25,8 +25,12 @@ from bot.telegram.commands.start import StartEndpoint
 
 
 @inject
-async def main(telegram: TelegramClient = Provide[MainContainer.telegram]) -> None:
+async def main(
+    telegram: TelegramClient = Provide[MainContainer.telegram],
+    app_version: str = Provide[MainContainer.config.app_version],
+) -> None:
     """Run bot."""
+    print(f"{app_version=}")
     telegram.add_handler(StartEndpoint().to_telegram_handler())
 
     telegram.add_handler(MenuEndpoint().to_telegram_handler())

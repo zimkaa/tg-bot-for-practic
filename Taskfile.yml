@@ -37,13 +37,17 @@ tasks:
       - pre-commit run --all-files
 
   run-local-test-bot:
-    desc: Run telegram bot
+    desc: Run telegram bot locally
     cmds:
-      - python ./run.py
+      - python -m bot
 
   build-docker-bot:
-    desc: Build docker container telegram bot
+    desc: "Build docker container telegram bot Example: task build-docker-bot -- '-p'"
+    env:
+      APP_VERSION:
+        sh: export VERSION="$(poetry version | awk '{print $2}')" && python ./version_build/build.py {{.CLI_ARGS}}
     cmds:
+      - sed -i "0,/RE/s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env >> .env
       - docker compose -f compose-dev.yaml up -d --build
 
   run-docker-bot:

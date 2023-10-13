@@ -8,6 +8,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: "${PROJECT_NAME}"
+    image: "${PROJECT_NAME}:${APP_VERSION}"
     restart: unless-stopped
     environment:
     - TELEGRAM_ADMIN_ID=${TELEGRAM_ADMIN_ID}

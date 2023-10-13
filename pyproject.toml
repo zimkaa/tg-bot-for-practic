@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "sales"
-version = "0.1.0"
+name = "sales_bot"
+version = "0.2.2"
 description = ""
 authors = ["Anton Zimin <zimkaa87@gmail.com>"]
 readme = "README.md"
