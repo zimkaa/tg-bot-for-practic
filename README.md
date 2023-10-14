@@ -9,3 +9,4 @@
 - [ ] Start on new bot
 - [ ] Create universal script to get picture file_id number
 - [ ] Create universal script to get user ID
+- [x] Other button

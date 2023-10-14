@@ -37,12 +37,10 @@ class PaymentsInfoCallbackQueryEndpoint(CallbackQueryEndpoint):
                         InlineKeyboardButton(text=constants.TRY_CARD, callback_data=f"{constants.TRY_PAYMENT}_{place}"),
                     ],
                     [
-                        # InlineKeyboardButton(
-                        #     text=constants.U_MONEY, callback_data=f"{constants.U_MONEY_PAYMENT}_{place}"
-                        # ),
                         InlineKeyboardButton(
                             text=constants.CRYPTO, callback_data=f"{constants.CRYPTO_PAYMENT}_{place}"
                         ),
+                        InlineKeyboardButton(text=constants.OTHER, callback_data=f"{constants.OTHER_PAYMENT}_{place}"),
                     ],
                 ],
             ),
