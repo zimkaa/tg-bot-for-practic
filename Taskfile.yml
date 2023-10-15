@@ -66,3 +66,13 @@ tasks:
       - python -m coverage run
       - python -m coverage report -m
       - python -m coverage html
+
+  file-id-bot:
+    desc: Run file_id sender locally
+    cmds:
+      - python ./get_file_id_for_bot.py
+
+  user-id-bot:
+    desc: Run user id sender locally
+    cmds:
+      - python ./get_user_id.py
