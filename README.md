@@ -3,7 +3,7 @@
 - [ ] Service - Send to admin info about error
 - [x] Photo
 - [ ] Screen pay card
-- [ ] Button Emoji
+- [x] Button Emoji
 - [ ] Delete all unnecessary
 - [x] Add admin chatID
 - [x] Start on new bot

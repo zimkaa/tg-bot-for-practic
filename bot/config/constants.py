@@ -8,10 +8,10 @@ MAIN_MENU: Final[str] = "Основное меню"
 BACK_TEXT: Final[str] = "Вернуться назад"
 
 KAS: Final[str] = "kas"
-GUIDE_KAS: Final[str] = "Гайд Каш"
+GUIDE_KAS: Final[str] = "Гайд Каш 🇹🇷"
 
 SOUTH: Final[str] = "south"
-GUIDE_SOUTH: Final[str] = "Гайд по югу Турции"
+GUIDE_SOUTH: Final[str] = "Гайд по югу Турции 🇹🇷"
 
 PAYMENT: Final[str] = "payment"
 PAYMENT_TEXT: Final[str] = "Оплатить 🤑"
