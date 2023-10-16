@@ -14,6 +14,7 @@ from bot.telegram.commands.kas import KasEndpoint
 from bot.telegram.commands.paid import PaidCallbackQueryEndpoint
 from bot.telegram.commands.payment import PaymentCallbackQueryEndpoint
 from bot.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
+from bot.telegram.commands.resend import ResendFile
 from bot.telegram.commands.south import FethiyeCallbackQueryEndpoint
 from bot.telegram.commands.south import FethiyeEndpoint
 
@@ -45,6 +46,8 @@ async def main(
     telegram.add_handler(FethiyeCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(PaidCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(MenuCallbackQueryEndpoint().to_telegram_handler())
+
+    telegram.add_handler(ResendFile().to_telegram_handler())
 
     await telegram.start()
     commands = [

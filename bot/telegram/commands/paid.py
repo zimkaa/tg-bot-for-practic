@@ -24,7 +24,11 @@ class PaidCallbackQueryEndpoint(CallbackQueryEndpoint):
         await callback_query.message.reply(
             text=template,
         )
-        admin_template = templates_text.ADMIN
+        admin_template = templates_text.ADMIN.format(
+            nick=callback_query.from_user.username,
+            name=callback_query.from_user.first_name,
+            last_name=callback_query.from_user.last_name,
+        )
         await client.send_message(
             chat_id=admin_id,
             text=admin_template,

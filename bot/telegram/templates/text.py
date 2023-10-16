@@ -123,7 +123,9 @@ PAID: Final[str] = r"""<b>Благодарю за покупку!</b>
 Пришлите скриншот/квитанцию сюда.
 """  # fmt: skip
 
-ADMIN: Final[str] = r"""<b>👋 Пользователь нажал кнопку заплатить! 🌍✨</b>
+ADMIN: Final[str] = r"""<b>👋 Пользователь {nick} нажал кнопку заплатить! 🌍✨</b>
+name `{name}`
+last_name `{last_name}`
 """  # fmt: skip
 
 # START_OLD = r"""<b>👋 Funny Body text! 🌍✨</b>
