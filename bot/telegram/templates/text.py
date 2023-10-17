@@ -100,35 +100,18 @@ OTHER_INFO: Final[str] = """<b>Свяжитесь со мной @ilnara174</b>
 
 PAYMENTS_OTHER_INFO: Final[str] = f"{OTHER_INFO}"
 
-PAYMENTS_U_MONEY_INFO: Final[str] = r"""<b>👋 PAYMENTS_U_MONEY_INFO! 🌍✨</b>
-
-<b>! 🤝🌟</b>
-
-🏄‍♂️🎲 . 🌊🍽️
-
-<b>Here's how it works:</b>
-1️⃣ .
-2️⃣ .
-3️⃣ .
-4️⃣ . 🗣️🤩
-
-🌐✈️ ! 🌟🌍🍴
-
-🤖🙌 <b>Happy adventuring!</b>
-"""  # fmt: skip
-
 PAID: Final[str] = r"""<b>Благодарю за покупку!</b>
 Проверка оплаты займёт до ~30 мин (в ночные часы до ~6 часов).
 
 Пришлите скриншот/квитанцию сюда.
 """  # fmt: skip
 
-ADMIN: Final[str] = r"""<b>👋 Пользователь {nick} нажал кнопку заплатить! 🌍✨</b>
+ADMIN: Final[str] = r"""<b>👋 Пользователь @{nick} нажал кнопку заплатить! 🌍✨</b>
 name `{name}`
 last_name `{last_name}`
 """  # fmt: skip
 
-# START_OLD = r"""<b>👋 Funny Body text! 🌍✨</b>
+# PAYMENTS_U_MONEY_INFO: Final[str] = r"""<b>👋 PAYMENTS_U_MONEY_INFO! 🌍✨</b>
 
 # <b>! 🤝🌟</b>
 
@@ -143,54 +126,4 @@ last_name `{last_name}`
 # 🌐✈️ ! 🌟🌍🍴
 
 # 🤖🙌 <b>Happy adventuring!</b>
-# """
-
-# SPECIAL_OFFER = r"""<b>👋 SPECIAL_OFFER! 🌍✨</b>
-
-# <b>! 🤝🌟</b>
-
-# 🏄‍♂️🎲 . 🌊🍽️
-
-# <b>Here's how it works:</b>
-# 1️⃣ .
-# 2️⃣ .
-# 3️⃣ .
-# 4️⃣ . 🗣️🤩
-
-# 🌐✈️ ! 🌟🌍🍴
-
-# 🤖🙌 <b>Happy adventuring!</b>
-# """
-
-# CATALOG = r"""<b>👋 CATALOG text! 🌍✨</b>
-
-# <b>! 🤝🌟</b>
-
-# 🏄‍♂️🎲 . 🌊🍽️
-
-# <b>Here's how it works:</b>
-# 1️⃣ .
-# 2️⃣ .
-# 3️⃣ .
-# 4️⃣ . 🗣️🤩
-
-# 🌐✈️ ! 🌟🌍🍴
-
-# 🤖🙌 <b>Happy adventuring!</b>
-# """
-
-# DELIVERY_INFO = r"""<b>👋 DELIVERY_INFO! 🌍✨</b>
-
-# <b>! 🤝🌟</b>
-
-# 🏄‍♂️🎲 . 🌊🍽️
-
-# <b>Here's how it works:</b>
-# 1️⃣ .
-# 2️⃣
-# 3️⃣
-# 4️⃣ . 🗣️🤩
-
-# 🌐✈️
-# 🤖🙌 <b>Happy adventuring!</b>
-# """
+# """  # fmt: skip

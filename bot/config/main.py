@@ -23,7 +23,7 @@ class Settings(BaseSettings):
 
     # Telegram settings:
     telegram_admin_id: int = 489534969
-    telegram_bot_name: str = "default_bot"
+    telegram_bot_name: str = "default_bot_name"
     telegram_bot_token: str = "default_token"
     telegram_api_id: int = 0000000000
     telegram_api_hash: str = "default_token"

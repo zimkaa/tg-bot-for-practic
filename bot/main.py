@@ -14,15 +14,12 @@ from bot.telegram.commands.kas import KasEndpoint
 from bot.telegram.commands.paid import PaidCallbackQueryEndpoint
 from bot.telegram.commands.payment import PaymentCallbackQueryEndpoint
 from bot.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
-from bot.telegram.commands.resend import ResendFile
 from bot.telegram.commands.south import FethiyeCallbackQueryEndpoint
 from bot.telegram.commands.south import FethiyeEndpoint
-
-# from bot.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
-# from bot.telegram.commands.special_offer import OfferCallbackQueryEndpoint, OfferEndpoint
 from bot.telegram.commands.start import MenuCallbackQueryEndpoint
 from bot.telegram.commands.start import MenuEndpoint
 from bot.telegram.commands.start import StartEndpoint
+from bot.telegram.messages.resend import ResendFile
 
 
 @inject
@@ -37,8 +34,6 @@ async def main(
     telegram.add_handler(MenuEndpoint().to_telegram_handler())
     telegram.add_handler(KasEndpoint().to_telegram_handler())
     telegram.add_handler(FethiyeEndpoint().to_telegram_handler())
-    # telegram.add_handler(PaymentsEndpoint().to_telegram_handler())
-    # telegram.add_handler(OfferEndpoint().to_telegram_handler())
 
     telegram.add_handler(PaymentCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(PaymentsInfoCallbackQueryEndpoint().to_telegram_handler())

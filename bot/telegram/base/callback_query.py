@@ -5,7 +5,6 @@ from pyrogram.handlers.callback_query_handler import CallbackQueryHandler
 from pyrogram.types import CallbackQuery
 
 from .custom_filters import filter_callback
-from .custom_filters import filter_multi_callback
 from .endpoint import BaseEndpoint
 
 
@@ -45,14 +44,3 @@ class CallbackQueryEndpoint(BaseEndpoint):
         callback_query: CallbackQuery,  # noqa: U100
     ) -> None:
         raise NotImplementedError()
-
-
-class MultiCallbackQueryEndpoint(CallbackQueryEndpoint):
-    multi_callback_query_name: list[str] | None = None
-
-    @classmethod
-    def get_filters(cls) -> Filter | None:
-        if not cls.callback_query_name:
-            return None
-        callback_filter = create(filter_multi_callback, callback_query_name=cls.multi_callback_query_name)
-        return callback_filter

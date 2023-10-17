@@ -16,7 +16,6 @@ from bot.deps.main import MainContainer
 
 class BaseEndpoint(ABC):
     filters: Optional[Filter] = None
-    is_public: bool = False
 
     @inject
     def __init__(

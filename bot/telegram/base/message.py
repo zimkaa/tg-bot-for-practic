@@ -1,8 +1,4 @@
-from typing import Optional
-
-from pyrogram import filters
 from pyrogram.client import Client
-from pyrogram.filters import Filter
 from pyrogram.handlers.message_handler import MessageHandler
 from pyrogram.types import Message
 
@@ -37,9 +33,3 @@ class MessageEndpoint(BaseEndpoint):
         message: Message,  # noqa: U100
     ) -> None:
         raise NotImplementedError()
-
-
-class PrivateMessage(MessageEndpoint):
-    @classmethod
-    def get_filters(cls) -> Optional[Filter]:
-        return ~filters.forwarded & filters.private

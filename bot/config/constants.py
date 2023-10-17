@@ -34,9 +34,9 @@ OTHER_PAYMENT: Final[str] = "other_payment_info"
 OTHER: Final[str] = "Другое 🤑"
 OTHER_PAID: Final[str] = "other_paid"
 
-U_MONEY_PAYMENT: Final[str] = "u_money_payment_info"
-U_MONEY: Final[str] = "Ю.моней"
-U_MONEY_PAID: Final[str] = "u_money_paid"
-
 PAID: Final[str] = "paid"
 PAID_TEXT: Final[str] = "Оплачено"
+
+# U_MONEY_PAYMENT: Final[str] = "u_money_payment_info"
+# U_MONEY: Final[str] = "Ю.моней"
+# U_MONEY_PAID: Final[str] = "u_money_paid"
