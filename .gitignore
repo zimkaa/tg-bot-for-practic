@@ -19,6 +19,7 @@ my_install.sh
 
 # dotenv
 .env
+.develop.env
 
 # test file
 test.py
