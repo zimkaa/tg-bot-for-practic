@@ -1,8 +1,6 @@
 # Python telegram bot for sales
 - [x] Instagram link
-- [ ] Service - Send to admin info about error
 - [x] Photo
-- [ ] Screen pay card
 - [x] Button Emoji
 - [ ] Delete all unnecessary
 - [x] Add admin chatID
