@@ -13,7 +13,7 @@
 
 ### Create new version
 
-1. use ```poetry version ``` like poetry version 0.5.3
+1. change version ```poetry version ``` like `poetry version 0.5.3`
 2. create docker ```task build-docker-bot-without-run -- '-p'```  `create production version`
 3. create docker ```task build-docker-bot-without-run```  `create test version with`
-4. push to docker  `to be continue...`
+4. push to docker ```docker image push --all-tags zimkaa/sales_bot```
