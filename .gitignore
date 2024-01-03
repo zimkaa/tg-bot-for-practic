@@ -14,7 +14,6 @@ __pycache__/
 my.db
 *.log.zip
 my_install.sh
-.python-version
 .pre-commit-config.yaml
 
 # dotenv
