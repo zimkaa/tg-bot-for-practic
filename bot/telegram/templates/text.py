@@ -51,7 +51,7 @@ PRICE_KAS: Final[str] = """<b>Стоимость гайда по Кашу:</b>
 """  # fmt: skip
 
 PRICE_SOUTH: Final[str] = """<b>Стоимость гайда по югу Турции:</b>
-30$ / 2800₽/ 850 лир
+40$ / 3500₽/ 1200 лир
 """  # fmt: skip
 
 PAYMENTS_INFO: Final[str] = """{price}
