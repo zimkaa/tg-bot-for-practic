@@ -5,6 +5,7 @@ services:
     # build:
     #   context: backend
     #   target: development
+    platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile

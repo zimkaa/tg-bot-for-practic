@@ -49,16 +49,20 @@ tasks:
       APP_VERSION:
         sh: export VERSION="$(poetry version | awk '{print $2}')" && python ./version_build/build.py {{.CLI_ARGS}}
     cmds:
-      - sed -i "0,/RE/s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env >> .env
+      # - sed -i "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env >> .env  # LINUX
+      # - sed -i ".bak" -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env  # MacOS
+      - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
       - docker compose -f compose-dev.yaml up -d --build
 
   build-docker-bot-without-run:
-    desc: "Build docker container telegram bot Example: task build-docker-bot -- '-p'"
+    desc: "Build docker container telegram bot Example: task build-docker-bot-without-run -- '-p'"
     env:
       APP_VERSION:
         sh: export VERSION="$(poetry version | awk '{print $2}')" && python ./version_build/build.py {{.CLI_ARGS}}
     cmds:
-      - sed -i "0,/RE/s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env >> .env
+      # - sed -i "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env >> .env  # LINUX
+      # - sed -i ".bak" -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env  # MacOS
+      - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
       - docker compose -f compose-dev.yaml create --build
 
   push-docker-container:
@@ -74,7 +78,7 @@ tasks:
   stop-docker-bot:
     desc: Stop docker container telegram bot
     cmds:
-      - docker compose -f compose-dev.yaml down && docker network prune --force
+      - docker compose -f compose-dev.yaml down
 
   test:
     desc: Run tests
