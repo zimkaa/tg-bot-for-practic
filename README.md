@@ -10,6 +10,7 @@
 - [x] Create universal script to get user ID
 - [x] Other button
 - [x] Personalize message about payment
+- [ ] Add github actions
 
 ## Create new version
 
