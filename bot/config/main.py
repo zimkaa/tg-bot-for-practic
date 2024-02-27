@@ -11,7 +11,7 @@ pydantic.BaseSettings = BaseSettings
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(extra="ignore", env_file=".env", env_file_encoding="utf-8")
 
-    app_version: str = "0.7.0"
+    app_version: str = "0.9.0"
 
     # Project settings:
     project_name: str = "sales_bot"
