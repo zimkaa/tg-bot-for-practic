@@ -8,17 +8,17 @@ from pyrogram.types import InlineKeyboardButton
 from pyrogram.types import InlineKeyboardMarkup
 from pyrogram.types import Message
 
-from bot.config import constants
-from bot.config import photo_ids
-from bot.deps.main import MainContainer
-from bot.telegram.base import CallbackQueryEndpoint
-from bot.telegram.base import PrivateCommandEndpoint
-from bot.telegram.templates import text as templates_text
+from src.config import constants
+from src.config import photo_ids
+from src.deps.main import MainContainer
+from src.telegram.base import PrivateCommandEndpoint
+from src.telegram.base.callback_query import CallbackQueryEndpoint
+from src.telegram.templates import text as templates_text
 
 
-class KasEndpoint(PrivateCommandEndpoint):
+class FethiyeEndpoint(PrivateCommandEndpoint):
     commands: List[str] = [
-        constants.KAS,
+        constants.SOUTH,
     ]
 
     @inject
@@ -31,14 +31,14 @@ class KasEndpoint(PrivateCommandEndpoint):
         try:
             await client.send_photo(
                 chat_id=message.from_user.id,
-                photo=photo_ids.KAS,
+                photo=photo_ids.SOUTH,
             )
         except Exception:
             await client.send_message(
                 chat_id=admin_id,
                 text=templates_text.PHOTO_PROBLEM,
             )
-        template = templates_text.KAS
+        template = templates_text.SOUTH
         await client.send_message(
             chat_id=message.from_user.id,
             text=template,
@@ -46,7 +46,7 @@ class KasEndpoint(PrivateCommandEndpoint):
                 [
                     [
                         InlineKeyboardButton(
-                            text=constants.PAYMENT_TEXT, callback_data=f"{constants.PAYMENT}_{constants.KAS}"
+                            text=constants.PAYMENT_TEXT, callback_data=f"{constants.PAYMENT}_{constants.SOUTH}"
                         ),
                         InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.MENU),
                     ]
@@ -55,8 +55,8 @@ class KasEndpoint(PrivateCommandEndpoint):
         )
 
 
-class KasCallbackQueryEndpoint(CallbackQueryEndpoint):
-    callback_query_name: str = constants.KAS
+class FethiyeCallbackQueryEndpoint(CallbackQueryEndpoint):
+    callback_query_name: str = constants.SOUTH
 
     @inject
     async def handle(
@@ -69,21 +69,21 @@ class KasCallbackQueryEndpoint(CallbackQueryEndpoint):
         try:
             await client.send_photo(
                 chat_id=callback_query.from_user.id,
-                photo=photo_ids.KAS,
+                photo=photo_ids.SOUTH,
             )
         except Exception:
             await client.send_message(
                 chat_id=admin_id,
                 text=templates_text.PHOTO_PROBLEM,
             )
-        template = templates_text.KAS
+        template = templates_text.SOUTH
         await callback_query.message.reply(
             text=template,
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text=constants.PAYMENT_TEXT, callback_data=f"{constants.PAYMENT}_{constants.KAS}"
+                            text=constants.PAYMENT_TEXT, callback_data=f"{constants.PAYMENT}_{constants.SOUTH}"
                         ),
                         InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.MENU),
                     ]

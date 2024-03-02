@@ -65,7 +65,7 @@ FROM python:3.11.5-slim
 
 # ENV PATH="/home/appuser/app/.venv/bin:$PATH"
 
-# COPY --chown=appuser:appgroup ./bot /home/appuser/app/bot/
+# COPY --chown=appuser:appgroup ./src /home/appuser/app/src/
 
 # COPY --chown=appuser:appgroup ./entrypoint.sh /home/appuser/app/
 

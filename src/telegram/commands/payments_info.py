@@ -3,9 +3,9 @@ from pyrogram.types import CallbackQuery
 from pyrogram.types import InlineKeyboardButton
 from pyrogram.types import InlineKeyboardMarkup
 
-from bot.config import constants
-from bot.telegram.base.callback_query import CallbackQueryEndpoint
-from bot.telegram.templates import text as templates_text
+from src.config import constants
+from src.telegram.base.callback_query import CallbackQueryEndpoint
+from src.telegram.templates import text as templates_text
 
 
 price_strategy = {

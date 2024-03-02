@@ -11,7 +11,7 @@ from pyrogram.types import KeyboardButton
 from pyrogram.types import Message
 from pyrogram.types import ReplyKeyboardMarkup
 
-from bot.deps.main import MainContainer
+from src.deps.main import MainContainer
 
 
 class BaseEndpoint(ABC):

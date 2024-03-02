@@ -8,12 +8,12 @@ from pyrogram.types import InlineKeyboardButton
 from pyrogram.types import InlineKeyboardMarkup
 from pyrogram.types import Message
 
-from bot.config import constants
-from bot.config import photo_ids
-from bot.deps.main import MainContainer
-from bot.telegram.base import CallbackQueryEndpoint
-from bot.telegram.base import PrivateCommandEndpoint
-from bot.telegram.templates import text as templates_text
+from src.config import constants
+from src.config import photo_ids
+from src.deps.main import MainContainer
+from src.telegram.base import CallbackQueryEndpoint
+from src.telegram.base import PrivateCommandEndpoint
+from src.telegram.templates import text as templates_text
 
 
 class StartEndpoint(PrivateCommandEndpoint):

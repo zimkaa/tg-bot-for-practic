@@ -1,6 +1,8 @@
 from typing import Final
 
 
+README_PATH: Final[str] = "./README.md"
+
 START: Final[str] = "start"
 MENU: Final[str] = "menu"
 MAIN_MENU: Final[str] = "Основное меню"

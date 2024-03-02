@@ -1,6 +1,6 @@
 import asyncio
 
-from bot.deps.main import MainContainer
+from src.deps.main import MainContainer
 
 from .main import main
 

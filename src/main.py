@@ -7,25 +7,25 @@ from pyrogram.client import Client as TelegramClient
 from pyrogram.errors import FloodWait
 from pyrogram.types import BotCommand
 
-from bot.config import constants
-from bot.deps.main import MainContainer
-from bot.telegram.commands.kas import KasCallbackQueryEndpoint
-from bot.telegram.commands.kas import KasEndpoint
-from bot.telegram.commands.paid import PaidCallbackQueryEndpoint
-from bot.telegram.commands.payment import PaymentCallbackQueryEndpoint
-from bot.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
-from bot.telegram.commands.south import FethiyeCallbackQueryEndpoint
-from bot.telegram.commands.south import FethiyeEndpoint
-from bot.telegram.commands.start import MenuCallbackQueryEndpoint
-from bot.telegram.commands.start import MenuEndpoint
-from bot.telegram.commands.start import StartEndpoint
-from bot.telegram.messages.resend import ResendFile
+from src.config import constants
+from src.deps.main import MainContainer
+from src.telegram.commands.kas import KasCallbackQueryEndpoint
+from src.telegram.commands.kas import KasEndpoint
+from src.telegram.commands.paid import PaidCallbackQueryEndpoint
+from src.telegram.commands.payment import PaymentCallbackQueryEndpoint
+from src.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
+from src.telegram.commands.south import FethiyeCallbackQueryEndpoint
+from src.telegram.commands.south import FethiyeEndpoint
+from src.telegram.commands.start import MenuCallbackQueryEndpoint
+from src.telegram.commands.start import MenuEndpoint
+from src.telegram.commands.start import StartEndpoint
+from src.telegram.messages.resend import ResendFile
 
 
 @inject
 async def main(
     telegram: TelegramClient = Provide[MainContainer.telegram],
-    app_version: str = Provide[MainContainer.config.app_version],
+    app_version: str = Provide[MainContainer.config.APP_VERSION],
 ) -> None:
     """Run bot."""
     print(f"{app_version=}")

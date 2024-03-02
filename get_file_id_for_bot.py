@@ -12,7 +12,7 @@ from pyrogram.filters import create
 from pyrogram.handlers.message_handler import MessageHandler
 from pyrogram.types import Message
 
-from bot.config import settings
+from src.config import settings
 
 
 TEXT = """

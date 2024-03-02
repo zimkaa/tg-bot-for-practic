@@ -11,8 +11,8 @@ from pyrogram.filters import Filter
 from pyrogram.handlers.message_handler import MessageHandler
 from pyrogram.types import Message
 
-from bot.config import constants
-from bot.config import settings
+from src.config import constants
+from src.config import settings
 
 
 TEXT = """

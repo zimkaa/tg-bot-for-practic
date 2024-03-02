@@ -44,7 +44,7 @@ repos:
     rev: v4.4.0
     hooks:
       - id: trailing-whitespace
-        exclude: bot/photo/
+        exclude: src/photo/
         exclude_types:
           - markdown
       - id: check-added-large-files

@@ -3,8 +3,8 @@ from dependency_injector.wiring import inject
 from pyrogram.client import Client
 from pyrogram.types import Message
 
-from bot.deps.main import MainContainer
-from bot.telegram.base.message import MessageEndpoint
+from src.deps.main import MainContainer
+from src.telegram.base.message import MessageEndpoint
 
 
 class ResendFile(MessageEndpoint):

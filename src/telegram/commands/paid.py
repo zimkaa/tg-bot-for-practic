@@ -3,10 +3,10 @@ from dependency_injector.wiring import inject
 from pyrogram.client import Client
 from pyrogram.types import CallbackQuery
 
-from bot.config import constants
-from bot.deps.main import MainContainer
-from bot.telegram.base.callback_query import CallbackQueryEndpoint
-from bot.telegram.templates import text as templates_text
+from src.config import constants
+from src.deps.main import MainContainer
+from src.telegram.base.callback_query import CallbackQueryEndpoint
+from src.telegram.templates import text as templates_text
 
 
 class PaidCallbackQueryEndpoint(CallbackQueryEndpoint):
