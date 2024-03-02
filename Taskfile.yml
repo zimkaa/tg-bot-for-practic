@@ -52,7 +52,8 @@ tasks:
       # - sed -i "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env >> .env  # LINUX
       # - sed -i ".bak" -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env  # MacOS
       - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
-      - docker compose -f compose-dev.yaml up -d --build
+      - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .prod.env
+      - docker compose -f docker-compose-dev.yaml --env-file .prod.env up -d --build
 
   build-docker-bot-without-run:
     desc: "Build docker container telegram bot Example: task build-docker-bot-without-run -- '-p'"
@@ -63,7 +64,8 @@ tasks:
       # - sed -i "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env >> .env  # LINUX
       # - sed -i ".bak" -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env  # MacOS
       - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
-      - docker compose -f compose-dev.yaml create --build
+      - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .prod.env
+      - docker compose -f docker-compose-dev.yaml --env-file .prod.env create --build
 
   push-docker-container:
     desc: "Push docker container to docker hub"
@@ -73,12 +75,12 @@ tasks:
   run-docker-bot:
     desc: Run docker container telegram bot
     cmds:
-      - docker compose -f compose-dev.yaml up -d
+      - docker compose -f docker-compose-dev.yaml --env-file .prod.env up -d
 
   stop-docker-bot:
     desc: Stop docker container telegram bot
     cmds:
-      - docker compose -f compose-dev.yaml down
+      - docker compose -f docker-compose-dev.yaml down
 
   test:
     desc: Run tests
@@ -96,3 +98,8 @@ tasks:
     desc: Run user id sender locally
     cmds:
       - python ./get_user_id.py
+
+  test-deploy:
+    desc: Deploy locally
+    cmds:
+      - act -j 'test' --var-file .vars --secret-file .secrets -e event.json

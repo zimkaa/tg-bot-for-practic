@@ -16,9 +16,13 @@ my.db
 my_install.sh
 .python-version
 .pre-commit-config.yaml
-
-# dotenv
+.DS_Store
 .env
+.dev.env
+.prod.env
+.vars
+.secrets
+event.json
 
 # test file
 test.py

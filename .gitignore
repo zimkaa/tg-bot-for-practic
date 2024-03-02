@@ -16,10 +16,13 @@ my.db
 *.log.zip
 my_install.sh
 .pre-commit-config.yaml
-
-# dotenv
+.DS_Store
 .env
-.develop.env
+.dev.env
+.prod.env
+.vars
+.secrets
+event.json
 
 # test file
 test.py
