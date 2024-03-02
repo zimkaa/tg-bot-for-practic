@@ -26,10 +26,21 @@ tasks:
       - envsubst < .pre-commit-config.yaml.template > .pre-commit-config.yaml
       - echo "The .pre-commit-config.yaml file has been generated."
 
-  update-pre-commit-config:
-    desc: "Update versions .pre-commit-config.yaml"
+  install-pre-commit-config:
+    desc: "Install pre-commit with generated .pre-commit-config.yaml"
     cmds:
+      - pre-commit install
+      - poetry update
+      - task generate-pre-commit-config
       - pre-commit autoupdate
+      - echo "The pre-commit installed and updated."
+
+  update-pre-commit-config:
+    desc: "Update versions .pre-commit-config.yaml and poetry update"
+    cmds:
+      - poetry update
+      - pre-commit autoupdate
+      - echo "The pre-commit updated."
 
   lint:
     desc: "Run pre-commit run --all-files"
@@ -41,30 +52,42 @@ tasks:
   run-local-test-bot:
     desc: Run telegram bot locally
     cmds:
-      - python -m bot
+      - python -m src
+
+  build-version:
+    desc: "Generate version. Example for generate production version: task build-version -- -p"
+    env:
+      APP_VERSION:
+        sh: python -m src.config.builder {{.CLI_ARGS}}
+      APP_NAME:
+        sh: poetry version | awk {'print $1'}
+    cmds:
+      - echo "APP_VERSION=${APP_VERSION}"
+      - sed -i '.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/; s/^APP_NAME=.*/APP_NAME=${APP_NAME}/" build_version
+      - echo "build version set up APP_VERSION=${APP_VERSION} APP_NAME=${APP_NAME}"
 
   build-docker-bot:
     desc: "Build docker container telegram bot and run Example: task build-docker-bot -- '-p'"
-    env:
-      APP_VERSION:
-        sh: export VERSION="$(poetry version | awk '{print $2}')" && python ./version_build/build.py {{.CLI_ARGS}}
+    # env:
+    #   APP_VERSION:
+    #     sh: export VERSION="$(poetry version | awk '{print $2}')" && python ./version_build/build.py {{.CLI_ARGS}}
     cmds:
-      # - sed -i "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env >> .env  # LINUX
-      # - sed -i ".bak" -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env  # MacOS
-      - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
-      - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .prod.env
+      # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
+      # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .prod.env
+      - task build-version -- {{.CLI_ARGS}}
       - docker compose -f docker-compose-dev.yaml --env-file .prod.env up -d --build
 
   build-docker-bot-without-run:
     desc: "Build docker container telegram bot Example: task build-docker-bot-without-run -- '-p'"
-    env:
-      APP_VERSION:
-        sh: export VERSION="$(poetry version | awk '{print $2}')" && python ./version_build/build.py {{.CLI_ARGS}}
+    # env:
+    #   APP_VERSION:
+    #     sh: export VERSION="$(poetry version | awk '{print $2}')" && python ./version_build/build.py {{.CLI_ARGS}}
     cmds:
-      # - sed -i "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env >> .env  # LINUX
-      # - sed -i ".bak" -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env  # MacOS
-      - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
-      - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .prod.env
+      # # - sed -i "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env >> .env  # LINUX
+      # # - sed -i ".bak" -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env  # MacOS
+      # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
+      # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .prod.env
+      - task build-version -- {{.CLI_ARGS}}
       - docker compose -f docker-compose-dev.yaml --env-file .prod.env create --build
 
   push-docker-container:
@@ -102,4 +125,5 @@ tasks:
   test-deploy:
     desc: Deploy locally
     cmds:
-      - act -j 'test' --var-file .vars --secret-file .secrets -e event.json
+      # - act -j 'test' --var-file .vars --secret-file .secrets -e event.json
+      - act --var-file .vars --secret-file .secrets -e event.json

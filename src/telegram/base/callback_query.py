@@ -12,14 +12,13 @@ class CallbackQueryEndpoint(BaseEndpoint):
     callback_query_name: str | None = None
 
     def to_telegram_handler(self) -> CallbackQueryHandler:
-        return CallbackQueryHandler(callback=self.callback, filters=self.get_filters())  # type: ignore
+        return CallbackQueryHandler(callback=self.callback, filters=self.get_filters())
 
     @classmethod
     def get_filters(cls) -> Filter | None:
         if not cls.callback_query_name:
             return None
-        callback_filter = create(filter_callback, callback_query_name=cls.callback_query_name)
-        return callback_filter
+        return create(filter_callback, callback_query_name=cls.callback_query_name)
 
     async def callback(
         self,
@@ -32,7 +31,7 @@ class CallbackQueryEndpoint(BaseEndpoint):
                 callback_query=callback_query,
             )
         except Exception as exc:
-            self.logger.exception(exc)
+            self.logger.exception(exc)  # noqa: TRY401
             await callback_query.answer(
                 text="Server error.",
                 show_alert=True,
@@ -40,7 +39,7 @@ class CallbackQueryEndpoint(BaseEndpoint):
 
     async def handle(
         self,
-        client: Client,  # noqa: U100
-        callback_query: CallbackQuery,  # noqa: U100
+        client: Client,
+        callback_query: CallbackQuery,
     ) -> None:
-        raise NotImplementedError()
+        raise NotImplementedError

@@ -1,7 +1,6 @@
 import asyncio
 
 from src.deps.main import MainContainer
-
 from .main import main
 
 

@@ -13,6 +13,6 @@ class ResendFile(MessageEndpoint):
         self,
         client: Client,
         message: Message,
-        admin_id: str = Provide[MainContainer.config.telegram_admin_id],
-    ) -> None:  # noqa: U100
+        admin_id: str = Provide[MainContainer.config.TELEGRAM_ADMIN_ID],
+    ) -> None:
         await client.forward_messages(chat_id=admin_id, from_chat_id=message.chat.id, message_ids=message.id)

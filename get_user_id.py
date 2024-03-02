@@ -1,7 +1,5 @@
 import asyncio
 from time import sleep
-from typing import List
-from typing import Optional
 
 from pyrogram import filters
 from pyrogram import idle
@@ -29,7 +27,7 @@ async def send_user_id(
     client: Client,
     message: Message,
 ) -> None:
-    """Send to main account user_ID and respond for messages"""
+    """Send to main account user_ID and respond for messages."""
     await client.send_message(
         chat_id=message.from_user.id,
         text=f"Your ID: {message.from_user.id}",
@@ -41,31 +39,30 @@ async def send_user_id(
         last_name=message.from_user.last_name if message.from_user.last_name else "None last_name",
     )
     await client.send_message(
-        chat_id=settings.telegram_admin_id,
+        chat_id=settings.TELEGRAM_ADMIN_ID,
         text=text_to_admin,
     )
 
 
 class EchoMessage:
     def to_telegram_handler(self) -> MessageHandler:
-        return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore
+        return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore  # noqa: PGH003
 
     @classmethod
-    def get_filters(cls) -> Optional[Filter]:
+    def get_filters(cls) -> Filter | None:
         return filters.text & filters.private
 
     async def callback(
         self,
         client: Client,
         message: Message,
-    ) -> None:  # noqa: U100
+    ) -> None:
         try:
             return await self.handle(
                 client=client,
                 message=message,
             )
-        except Exception as exc:
-            print(exc)
+        except Exception:  # noqa: BLE001
             await message.reply(
                 text="Error echo text",
                 reply_to_message_id=message.id,
@@ -75,34 +72,33 @@ class EchoMessage:
         self,
         client: Client,
         message: Message,
-    ) -> None:  # noqa: U100
+    ) -> None:
         await send_user_id(client=client, message=message)
 
 
 class StartEchoEndpoint:
-    commands: List[str] = [
+    commands: list[str] = [
         constants.START,
     ]
 
     def to_telegram_handler(self) -> MessageHandler:
-        return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore
+        return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore  # noqa: PGH003
 
     @classmethod
-    def get_filters(cls) -> Optional[Filter]:
+    def get_filters(cls) -> Filter | None:
         return ~filters.forwarded & filters.private & filters.command(commands=cls.commands)
 
     async def callback(
         self,
         client: Client,
         message: Message,
-    ) -> None:  # noqa: U100
+    ) -> None:
         try:
             return await self.handle(
                 client=client,
                 message=message,
             )
-        except Exception as exc:
-            print(exc)
+        except Exception:  # noqa: BLE001
             await message.reply(
                 text="Error echo command",
                 reply_to_message_id=message.id,
@@ -112,17 +108,17 @@ class StartEchoEndpoint:
         self,
         client: Client,
         message: Message,
-    ) -> None:  # noqa: U100
+    ) -> None:
         await send_user_id(client=client, message=message)
 
 
 async def main() -> None:
-    """Send to main account user_ID and respond for messages"""
+    """Send to main account user_ID and respond for messages."""
     telegram = Client(
-        name=settings.telegram_bot_name,
-        bot_token=settings.telegram_bot_token,
-        api_id=settings.telegram_api_id,
-        api_hash=settings.telegram_api_hash,
+        name=settings.TELEGRAM_BOT_NAME,
+        bot_token=settings.TELEGRAM_BOT_TOKEN,
+        api_id=settings.TELEGRAM_API_ID,
+        api_hash=settings.TELEGRAM_API_HASH,
     )
     telegram.add_handler(EchoMessage().to_telegram_handler())
     telegram.add_handler(StartEchoEndpoint().to_telegram_handler())
@@ -135,8 +131,7 @@ async def main() -> None:
         # TODO: Logging
         # TODO: BOT INFO
         if isinstance(exc.value, int):
-            print(f"Wait {exc.value} seconds.")
-            sleep(float(exc.value))
+            sleep(float(exc.value))  # noqa: ASYNC101
     finally:
         await telegram.stop()
 

@@ -21,10 +21,11 @@ class PaymentsInfoCallbackQueryEndpoint(CallbackQueryEndpoint):
         self,
         client: Client,
         callback_query: CallbackQuery,
-    ) -> None:  # noqa: U100
+    ) -> None:
         await client.answer_callback_query(callback_query.id)
         if not isinstance(callback_query.data, str):
-            raise Exception("Callback query data is not str")
+            msg = "Callback query data is not str"
+            raise Exception(msg)  # noqa: TRY004, TRY002
         place = callback_query.data.replace("payment_", "")
         price = price_strategy[place]
         template = templates_text.PAYMENTS_INFO.format(price=price)
@@ -38,7 +39,8 @@ class PaymentsInfoCallbackQueryEndpoint(CallbackQueryEndpoint):
                     ],
                     [
                         InlineKeyboardButton(
-                            text=constants.CRYPTO, callback_data=f"{constants.CRYPTO_PAYMENT}_{place}"
+                            text=constants.CRYPTO,
+                            callback_data=f"{constants.CRYPTO_PAYMENT}_{place}",
                         ),
                         InlineKeyboardButton(text=constants.OTHER, callback_data=f"{constants.OTHER_PAYMENT}_{place}"),
                     ],

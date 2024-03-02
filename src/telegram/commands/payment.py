@@ -30,10 +30,11 @@ class PaymentCallbackQueryEndpoint(CallbackQueryEndpoint):
         self,
         client: Client,
         callback_query: CallbackQuery,
-    ) -> None:  # noqa: U100
+    ) -> None:
         await client.answer_callback_query(callback_query.id)
         if not isinstance(callback_query.data, str):
-            raise Exception("Callback query data is not str")
+            msg = "Callback query data is not str"
+            raise Exception(msg)  # noqa: TRY004, TRY002
         query = callback_query.data.replace(f"_{constants.SOUTH}", "").replace(f"_{constants.KAS}", "")
         city = callback_query.data.split("_")[-1]
         template = templates_strategy[query]
@@ -41,7 +42,7 @@ class PaymentCallbackQueryEndpoint(CallbackQueryEndpoint):
         paid_button = InlineKeyboardButton(text=constants.PAID_TEXT, callback_data=constants.PAID)
         inline_reply_markup = [back_button]
         if query != constants.OTHER_PAYMENT:
-            inline_reply_markup = [paid_button] + inline_reply_markup
+            inline_reply_markup = [paid_button, *inline_reply_markup]
         await callback_query.message.reply(
             text=template,
             reply_markup=InlineKeyboardMarkup([inline_reply_markup]),

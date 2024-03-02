@@ -40,7 +40,7 @@ async def send_user_id(
     client: Client,
     message: Message,
 ) -> None:
-    """Send to main account user_ID and respond for messages"""
+    """Send to main account user_ID and respond for messages."""
     if message.media == enums.MessageMediaType.DOCUMENT:
         file_id = message.document.file_id if message.document else "In message no document"
     else:
@@ -58,14 +58,14 @@ async def send_user_id(
         file_id=file_id,
     )
     await client.send_message(
-        chat_id=settings.telegram_admin_id,
+        chat_id=settings.TELEGRAM_ADMIN_ID,
         text=text_to_admin,
     )
 
 
 class EchoFileIDMessage:
     def to_telegram_handler(self) -> MessageHandler:
-        return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore
+        return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore  # noqa: PGH003
 
     @classmethod
     def get_filters(cls) -> Optional[Filter]:
@@ -75,14 +75,13 @@ class EchoFileIDMessage:
         self,
         client: Client,
         message: Message,
-    ) -> None:  # noqa: U100
+    ) -> None:
         try:
             return await self.handle(
                 client=client,
                 message=message,
             )
-        except Exception as exc:
-            print(exc)
+        except Exception:  # noqa: BLE001
             await message.reply(
                 text="Error echo text",
                 reply_to_message_id=message.id,
@@ -92,17 +91,17 @@ class EchoFileIDMessage:
         self,
         client: Client,
         message: Message,
-    ) -> None:  # noqa: U100
+    ) -> None:
         await send_user_id(client=client, message=message)
 
 
 async def main() -> None:
-    """Send to main account user_ID and respond for messages"""
+    """Send to main account user_ID and respond for messages."""
     telegram = Client(
-        name=settings.telegram_bot_name,
-        bot_token=settings.telegram_bot_token,
-        api_id=settings.telegram_api_id,
-        api_hash=settings.telegram_api_hash,
+        name=settings.TELEGRAM_BOT_NAME,
+        bot_token=settings.TELEGRAM_BOT_TOKEN,
+        api_id=settings.TELEGRAM_API_ID,
+        api_hash=settings.TELEGRAM_API_HASH,
     )
     telegram.add_handler(EchoFileIDMessage().to_telegram_handler())
 
@@ -114,8 +113,7 @@ async def main() -> None:
         # TODO: Logging
         # TODO: BOT INFO
         if isinstance(exc.value, int):
-            print(f"Wait {exc.value} seconds.")
-            sleep(float(exc.value))
+            sleep(float(exc.value))  # noqa: ASYNC101
     finally:
         await telegram.stop()
 

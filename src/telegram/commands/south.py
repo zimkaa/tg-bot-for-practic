@@ -1,5 +1,3 @@
-from typing import List
-
 from dependency_injector.wiring import Provide
 from dependency_injector.wiring import inject
 from pyrogram.client import Client
@@ -17,7 +15,7 @@ from src.telegram.templates import text as templates_text
 
 
 class FethiyeEndpoint(PrivateCommandEndpoint):
-    commands: List[str] = [
+    commands: list[str] = [
         constants.SOUTH,
     ]
 
@@ -26,14 +24,14 @@ class FethiyeEndpoint(PrivateCommandEndpoint):
         self,
         client: Client,
         message: Message,
-        admin_id: str = Provide[MainContainer.config.telegram_admin_id],
-    ) -> None:  # noqa: U100
+        admin_id: str = Provide[MainContainer.config.TELEGRAM_ADMIN_ID],
+    ) -> None:
         try:
             await client.send_photo(
                 chat_id=message.from_user.id,
                 photo=photo_ids.SOUTH,
             )
-        except Exception:
+        except Exception:  # noqa: BLE001
             await client.send_message(
                 chat_id=admin_id,
                 text=templates_text.PHOTO_PROBLEM,
@@ -46,10 +44,11 @@ class FethiyeEndpoint(PrivateCommandEndpoint):
                 [
                     [
                         InlineKeyboardButton(
-                            text=constants.PAYMENT_TEXT, callback_data=f"{constants.PAYMENT}_{constants.SOUTH}"
+                            text=constants.PAYMENT_TEXT,
+                            callback_data=f"{constants.PAYMENT}_{constants.SOUTH}",
                         ),
                         InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.MENU),
-                    ]
+                    ],
                 ],
             ),
         )
@@ -63,15 +62,15 @@ class FethiyeCallbackQueryEndpoint(CallbackQueryEndpoint):
         self,
         client: Client,
         callback_query: CallbackQuery,
-        admin_id: str = Provide[MainContainer.config.telegram_admin_id],
-    ) -> None:  # noqa: U100
+        admin_id: str = Provide[MainContainer.config.TELEGRAM_ADMIN_ID],
+    ) -> None:
         await client.answer_callback_query(callback_query.id)
         try:
             await client.send_photo(
                 chat_id=callback_query.from_user.id,
                 photo=photo_ids.SOUTH,
             )
-        except Exception:
+        except Exception:  # noqa: BLE001
             await client.send_message(
                 chat_id=admin_id,
                 text=templates_text.PHOTO_PROBLEM,
@@ -83,10 +82,11 @@ class FethiyeCallbackQueryEndpoint(CallbackQueryEndpoint):
                 [
                     [
                         InlineKeyboardButton(
-                            text=constants.PAYMENT_TEXT, callback_data=f"{constants.PAYMENT}_{constants.SOUTH}"
+                            text=constants.PAYMENT_TEXT,
+                            callback_data=f"{constants.PAYMENT}_{constants.SOUTH}",
                         ),
                         InlineKeyboardButton(text=constants.MAIN_MENU, callback_data=constants.MENU),
-                    ]
+                    ],
                 ],
             ),
         )

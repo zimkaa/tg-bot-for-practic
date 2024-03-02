@@ -17,8 +17,8 @@ class PaidCallbackQueryEndpoint(CallbackQueryEndpoint):
         self,
         client: Client,
         callback_query: CallbackQuery,
-        admin_id: str = Provide[MainContainer.config.telegram_admin_id],
-    ) -> None:  # noqa: U100
+        admin_id: str = Provide[MainContainer.config.TELEGRAM_ADMIN_ID],
+    ) -> None:
         await client.answer_callback_query(callback_query.id)
         template = templates_text.PAID
         await callback_query.message.reply(

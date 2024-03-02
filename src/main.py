@@ -1,3 +1,4 @@
+from logging import Logger
 from time import sleep
 
 from dependency_injector.wiring import Provide
@@ -26,9 +27,11 @@ from src.telegram.messages.resend import ResendFile
 async def main(
     telegram: TelegramClient = Provide[MainContainer.telegram],
     app_version: str = Provide[MainContainer.config.APP_VERSION],
+    logger: Logger = Provide[MainContainer.config.LOGGER],
 ) -> None:
     """Run bot."""
-    print(f"{app_version=}")
+    logger.getChild(__name__)
+    logger.info("Bot version: %s", app_version)
     telegram.add_handler(StartEndpoint().to_telegram_handler())
 
     telegram.add_handler(MenuEndpoint().to_telegram_handler())
@@ -59,7 +62,7 @@ async def main(
         # TODO: Logging
         # TODO: BOT INFO
         if isinstance(exc.value, int):
-            print(f"Wait {exc.value} seconds.")
-            sleep(float(exc.value))
+            logger.info("Wait %s seconds.", exc.value)
+            sleep(float(exc.value))  # noqa: ASYNC101
     finally:
         await telegram.stop()

@@ -1,6 +1,5 @@
 from abc import ABC
 from logging import Logger
-from typing import Optional
 
 from dependency_injector.wiring import Provide
 from dependency_injector.wiring import inject
@@ -15,18 +14,18 @@ from src.deps.main import MainContainer
 
 
 class BaseEndpoint(ABC):
-    filters: Optional[Filter] = None
+    filters: Filter | None = None
 
     @inject
     def __init__(
         self,
-        logger: Logger = Provide[MainContainer.config.logger],  # type: ignore
+        logger: Logger = Provide[MainContainer.config.LOGGER],
     ) -> None:
         super().__init__()
         self.logger = logger.getChild(self.__class__.__name__)
 
     def to_telegram_handler(self) -> Handler:
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @classmethod
     def get_filters(cls) -> Filter | None:
@@ -36,11 +35,11 @@ class BaseEndpoint(ABC):
         self,
         chat_id: int,
         client: Client,
-        message: Optional[str] = None,
+        message: str | None = None,
     ) -> Message:
         if not message:
             message = "To access all commands, you need to share a contact"
-        send_message = await client.send_message(
+        return await client.send_message(
             chat_id=chat_id,
             text=message,
             reply_markup=ReplyKeyboardMarkup(
@@ -52,18 +51,16 @@ class BaseEndpoint(ABC):
                 resize_keyboard=True,
             ),
         )
-        return send_message
 
     async def _send_message(
         self,
         chat_id: int,
         client: Client,
-        message: Optional[str] = None,
+        message: str | None = None,
     ) -> Message:
         if not message:
             message = "Some trouble"
-        send_message = await client.send_message(
+        return await client.send_message(
             chat_id=chat_id,
             text=message,
         )
-        return send_message

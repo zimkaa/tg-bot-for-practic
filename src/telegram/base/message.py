@@ -7,20 +7,20 @@ from .endpoint import BaseEndpoint
 
 class MessageEndpoint(BaseEndpoint):
     def to_telegram_handler(self) -> MessageHandler:
-        return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore
+        return MessageHandler(callback=self.callback, filters=self.get_filters())
 
     async def callback(
         self,
         client: Client,
         message: Message,
-    ) -> None:  # noqa: U100
+    ) -> None:
         try:
             return await self.handle(
                 client=client,
                 message=message,
             )
         except Exception as exc:
-            self.logger.exception(exc)
+            self.logger.exception(exc)  # noqa: TRY401
             await message.reply(
                 # text=jinja.get_template("unknown_error.jinja").render(),
                 text="Error",
@@ -29,7 +29,7 @@ class MessageEndpoint(BaseEndpoint):
 
     async def handle(
         self,
-        client: Client,  # noqa: U100
-        message: Message,  # noqa: U100
+        client: Client,
+        message: Message,
     ) -> None:
-        raise NotImplementedError()
+        raise NotImplementedError

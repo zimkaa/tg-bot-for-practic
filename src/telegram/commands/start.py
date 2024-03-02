@@ -1,5 +1,3 @@
-from typing import List
-
 from dependency_injector.wiring import Provide
 from dependency_injector.wiring import inject
 from pyrogram.client import Client
@@ -17,7 +15,7 @@ from src.telegram.templates import text as templates_text
 
 
 class StartEndpoint(PrivateCommandEndpoint):
-    commands: List[str] = [
+    commands: list[str] = [
         constants.START,
     ]
 
@@ -26,8 +24,8 @@ class StartEndpoint(PrivateCommandEndpoint):
         self,
         client: Client,
         message: Message,
-        admin_id: str = Provide[MainContainer.config.telegram_admin_id],
-    ) -> None:  # noqa: U100
+        admin_id: str = Provide[MainContainer.config.TELEGRAM_ADMIN_ID],
+    ) -> None:
         await client.send_message(
             chat_id=message.from_user.id,
             text=templates_text.START,
@@ -37,7 +35,7 @@ class StartEndpoint(PrivateCommandEndpoint):
                 chat_id=message.from_user.id,
                 photo=photo_ids.START,
             )
-        except Exception:
+        except Exception:  # noqa: BLE001
             await client.send_message(
                 chat_id=admin_id,
                 text=templates_text.PHOTO_PROBLEM,
@@ -51,14 +49,14 @@ class StartEndpoint(PrivateCommandEndpoint):
                     [
                         InlineKeyboardButton(text=constants.GUIDE_SOUTH, callback_data=constants.SOUTH),
                         InlineKeyboardButton(text=constants.GUIDE_KAS, callback_data=constants.KAS),
-                    ]
+                    ],
                 ],
             ),
         )
 
 
 class MenuEndpoint(PrivateCommandEndpoint):
-    commands: List[str] = [
+    commands: list[str] = [
         constants.MENU,
     ]
 
@@ -67,14 +65,14 @@ class MenuEndpoint(PrivateCommandEndpoint):
         self,
         client: Client,
         message: Message,
-        admin_id: str = Provide[MainContainer.config.telegram_admin_id],
-    ) -> None:  # noqa: U100
+        admin_id: str = Provide[MainContainer.config.TELEGRAM_ADMIN_ID],
+    ) -> None:
         try:
             await client.send_photo(
                 chat_id=message.from_user.id,
                 photo=photo_ids.START,
             )
-        except Exception:
+        except Exception:  # noqa: BLE001
             await client.send_message(
                 chat_id=admin_id,
                 text=templates_text.PHOTO_PROBLEM,
@@ -88,7 +86,7 @@ class MenuEndpoint(PrivateCommandEndpoint):
                     [
                         InlineKeyboardButton(text=constants.GUIDE_SOUTH, callback_data=constants.SOUTH),
                         InlineKeyboardButton(text=constants.GUIDE_KAS, callback_data=constants.KAS),
-                    ]
+                    ],
                 ],
             ),
         )
@@ -102,15 +100,15 @@ class MenuCallbackQueryEndpoint(CallbackQueryEndpoint):
         self,
         client: Client,
         callback_query: CallbackQuery,
-        admin_id: str = Provide[MainContainer.config.telegram_admin_id],
-    ) -> None:  # noqa: U100
+        admin_id: str = Provide[MainContainer.config.TELEGRAM_ADMIN_ID],
+    ) -> None:
         await client.answer_callback_query(callback_query.id)
         try:
             await client.send_photo(
                 chat_id=callback_query.from_user.id,
                 photo=photo_ids.START,
             )
-        except Exception:
+        except Exception:  # noqa: BLE001
             await client.send_message(
                 chat_id=admin_id,
                 text=templates_text.PHOTO_PROBLEM,
@@ -123,7 +121,7 @@ class MenuCallbackQueryEndpoint(CallbackQueryEndpoint):
                     [
                         InlineKeyboardButton(text=constants.GUIDE_SOUTH, callback_data=constants.SOUTH),
                         InlineKeyboardButton(text=constants.GUIDE_KAS, callback_data=constants.KAS),
-                    ]
+                    ],
                 ],
             ),
         )
