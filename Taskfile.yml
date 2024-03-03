@@ -60,21 +60,10 @@ tasks:
       APP_VERSION:
         sh: python -m src.config.builder {{.CLI_ARGS}}
       APP_NAME:
-        sh: python -m src.config.project_name
+        sh: python -m src.config.get_name
     cmds:
       - sed -i '.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/; s/^APP_NAME=.*/APP_NAME=${APP_NAME}/" build_version
       - echo "build version set up APP_VERSION=${APP_VERSION} APP_NAME=${APP_NAME}"
-
-  # build-docker-bot:
-  #   desc: "Build docker container telegram bot and run Example: task build-docker-bot -- '-p'"
-  #   # env:
-  #   #   APP_VERSION:
-  #   #     sh: export VERSION="$(poetry version | awk '{print $2}')" && python ./version_build/build.py {{.CLI_ARGS}}
-  #   cmds:
-  #     # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
-  #     # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .prod.env
-  #     - task build-version -- {{.CLI_ARGS}}
-  #     - docker compose -f docker-compose-dev.yaml --env-file build_version up -d --build
 
   build-docker-bot-without-run:
     desc: "Build docker container telegram bot Example: task build-docker-bot-without-run -- '-p'"
@@ -118,3 +107,9 @@ tasks:
     desc: Deploy locally
     cmds:
       - act --var-file .vars --secret-file .secrets -e event.json
+
+  run-build-container:
+    desc: Run locally container
+    dotenv: ['build_version']
+    cmds:
+      - docker run --platform linux/amd64 --env-file .dev.env --name "${APP_NAME}-${APP_VERSION}" -d "zimkaa/${APP_NAME}:${APP_VERSION}"

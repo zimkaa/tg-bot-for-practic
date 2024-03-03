@@ -2,20 +2,11 @@ version: "3.7"
 
 services:
   bot:
-    # build:
-    #   context: backend
-    #   target: development
     platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile
     container_name: "${APP_NAME}"
-    image: "${PROJECT_REPOSITORY_NAME}${APP_NAME}:${APP_VERSION}"
+    image: "zimkaa/${APP_NAME}:${APP_VERSION}"
     restart: unless-stopped
-    # environment:
-    # - TELEGRAM_ADMIN_ID=${TELEGRAM_ADMIN_ID}
-    # - TELEGRAM_BOT_NAME=${TELEGRAM_BOT_NAME}
-    # - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
-    # - ENVIRONMENT=${ENVIRONMENT}
-    # - TELEGRAM_API_ID=${TELEGRAM_API_ID}
-    # - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
+    env_file: .dev.env

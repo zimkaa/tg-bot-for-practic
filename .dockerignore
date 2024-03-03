@@ -19,7 +19,6 @@ my_install.sh
 .DS_Store
 .env
 .dev.env
-.prod.env
 .vars
 .secrets
 event.json

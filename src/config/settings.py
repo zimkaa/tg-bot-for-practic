@@ -1,26 +1,16 @@
 import logging
 
 import pydantic
-import tomllib
 from pydantic import Field
 from pydantic import computed_field
 from pydantic_settings import BaseSettings
 from pydantic_settings import SettingsConfigDict
 
+from .project_info import get_name
+from .project_info import get_version
+
 
 pydantic.BaseSettings = BaseSettings
-
-
-def get_version() -> str:
-    with open("pyproject.toml", "rb") as f:  # noqa: PTH123
-        data = tomllib.load(f)
-    return data["tool"]["poetry"]["version"]
-
-
-def get_name() -> str:
-    with open("pyproject.toml", "rb") as f:  # noqa: PTH123
-        data = tomllib.load(f)
-    return data["tool"]["poetry"]["name"]
 
 
 class Settings(BaseSettings):
