@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - 'main'
+      - 'develop'
 
-  pull_request:
-    branches:
-      - '*'
+  # pull_request:
+  #   branches:
+  #     - '*'
 
 jobs:
   docker-build-push:
@@ -21,21 +22,20 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Get the version from file
         run: cat build_version >> $GITHUB_ENV
-      # - name: Get the version from file
-      #   run: cat build_version >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
+          tags: ${{ env.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
 
   docker-run:
     if: ${{ !github.event.act }}
     runs-on: ubuntu-latest
+    needs: docker-build-push
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -51,31 +51,14 @@ jobs:
         passphrase: ${{ secrets.KEY_PASSPHRASE }}
         port: 22
         script: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
-          docker run --env-file ~/sales_bot/.env -d ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
+          docker pull ${{ env.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
+          docker run --env-file ~/sales_bot/.env -d ${{ env.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
 
-  test:
-    runs-on: ubuntu-latest
-    if: ${{ !github.event.act }}
-    steps:
-    - name: Connect using ssh
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: 22
-        script: |
-          echo "Docker user: ${{ vars.DOCKERHUB_USERNAME }}"
-          echo "Server host: ${{ secrets.SERVER_HOST }}"
-          echo "Server user: ${{ secrets.SERVER_USER }}"
-          echo "Server key: ${{ secrets.SSH_PRIVATE_KEY }}"
-
-  # test2:
+  # test:
   #   runs-on: ubuntu-latest
+  #   if: ${{ !github.event.act }}
   #   steps:
   #   - name: Connect using ssh
-  #     if: ${{ !env.ACT }}
   #     uses: appleboy/ssh-action@v1.0.3
   #     with:
   #       host: ${{ secrets.SERVER_HOST }}
@@ -88,25 +71,42 @@ jobs:
   #         echo "Server user: ${{ secrets.SERVER_USER }}"
   #         echo "Server key: ${{ secrets.SSH_PRIVATE_KEY }}"
 
-  test3:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Get the version from file
-      run: cat build_version >> $GITHUB_ENV
-    - name: Connect using ssh
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        passphrase: ${{ secrets.KEY_PASSPHRASE }}
-        port: 22
-        script: |
-          echo "Docker user: ${{ vars.DOCKERHUB_USERNAME }}"
-          echo "Docker user: ${{ env.APP_VERSION }}"
-          ls -la
-          cd ~/test_action/
-          pwd
-          # git status
+  # # test2:
+  # #   runs-on: ubuntu-latest
+  # #   steps:
+  # #   - name: Connect using ssh
+  # #     if: ${{ !env.ACT }}
+  # #     uses: appleboy/ssh-action@v1.0.3
+  # #     with:
+  # #       host: ${{ secrets.SERVER_HOST }}
+  # #       username: ${{ secrets.SERVER_USER }}
+  # #       key: ${{ secrets.SSH_PRIVATE_KEY }}
+  # #       port: 22
+  # #       script: |
+  # #         echo "Docker user: ${{ vars.DOCKERHUB_USERNAME }}"
+  # #         echo "Server host: ${{ secrets.SERVER_HOST }}"
+  # #         echo "Server user: ${{ secrets.SERVER_USER }}"
+  # #         echo "Server key: ${{ secrets.SSH_PRIVATE_KEY }}"
+
+  # test3:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v2
+  #   - name: Get the version from file
+  #     run: cat build_version >> $GITHUB_ENV
+  #   - name: Connect using ssh
+  #     uses: appleboy/ssh-action@v1.0.3
+  #     with:
+  #       host: ${{ secrets.SERVER_HOST }}
+  #       username: ${{ secrets.SERVER_USER }}
+  #       key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #       passphrase: ${{ secrets.KEY_PASSPHRASE }}
+  #       port: 22
+  #       script: |
+  #         echo "Docker user: ${{ vars.DOCKERHUB_USERNAME }}"
+  #         echo "Docker user: ${{ env.APP_VERSION }}"
+  #         ls -la
+  #         cd ~/test_action/
+  #         pwd
+  #         # git status
