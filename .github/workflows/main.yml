@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'main'
-      - 'develop'
 
   # pull_request:
   #   branches:
@@ -55,7 +54,8 @@ jobs:
         port: 22
         script: |
           docker pull ${{ vars.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
-          docker run --env-file ~/sales_bot/.env -d ${{ vars.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
+          docker stop $(docker ps -q)
+          docker run --env-file ~/sales_bot/.env --name "${{ env.APP_NAME }}-${{ env.APP_VERSION }}" -d ${{ vars.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
 
   # test:
   #   runs-on: ubuntu-latest
