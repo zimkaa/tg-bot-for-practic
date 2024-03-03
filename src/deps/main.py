@@ -8,8 +8,8 @@ from src.config import settings
 class MainContainer(containers.DeclarativeContainer):
     wiring_config = containers.WiringConfiguration(
         packages=[
-            "bot",
-            "bot.telegram.base.endpoint",
+            "src",
+            "src.telegram.base.endpoint",
         ],
     )
 

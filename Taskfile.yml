@@ -60,35 +60,27 @@ tasks:
       APP_VERSION:
         sh: python -m src.config.builder {{.CLI_ARGS}}
       APP_NAME:
-        sh: poetry version | awk {'print $1'}
+        sh: python -m src.config.project_name
     cmds:
-      - echo "APP_VERSION=${APP_VERSION}"
       - sed -i '.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/; s/^APP_NAME=.*/APP_NAME=${APP_NAME}/" build_version
       - echo "build version set up APP_VERSION=${APP_VERSION} APP_NAME=${APP_NAME}"
 
-  build-docker-bot:
-    desc: "Build docker container telegram bot and run Example: task build-docker-bot -- '-p'"
-    # env:
-    #   APP_VERSION:
-    #     sh: export VERSION="$(poetry version | awk '{print $2}')" && python ./version_build/build.py {{.CLI_ARGS}}
-    cmds:
-      # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
-      # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .prod.env
-      - task build-version -- {{.CLI_ARGS}}
-      - docker compose -f docker-compose-dev.yaml --env-file .prod.env up -d --build
+  # build-docker-bot:
+  #   desc: "Build docker container telegram bot and run Example: task build-docker-bot -- '-p'"
+  #   # env:
+  #   #   APP_VERSION:
+  #   #     sh: export VERSION="$(poetry version | awk '{print $2}')" && python ./version_build/build.py {{.CLI_ARGS}}
+  #   cmds:
+  #     # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
+  #     # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .prod.env
+  #     - task build-version -- {{.CLI_ARGS}}
+  #     - docker compose -f docker-compose-dev.yaml --env-file build_version up -d --build
 
   build-docker-bot-without-run:
     desc: "Build docker container telegram bot Example: task build-docker-bot-without-run -- '-p'"
-    # env:
-    #   APP_VERSION:
-    #     sh: export VERSION="$(poetry version | awk '{print $2}')" && python ./version_build/build.py {{.CLI_ARGS}}
     cmds:
-      # # - sed -i "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env >> .env  # LINUX
-      # # - sed -i ".bak" -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env  # MacOS
-      # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .env
-      # - sed -i'.bak' -e "s/^APP_VERSION=.*/APP_VERSION=${APP_VERSION}/" .prod.env
       - task build-version -- {{.CLI_ARGS}}
-      - docker compose -f docker-compose-dev.yaml --env-file .prod.env create --build
+      - docker compose -f docker-compose-dev.yaml --env-file build_version create --build
 
   push-docker-container:
     desc: "Push docker container to docker hub"
@@ -98,19 +90,19 @@ tasks:
   run-docker-bot:
     desc: Run docker container telegram bot
     cmds:
-      - docker compose -f docker-compose-dev.yaml --env-file .prod.env up -d
+      - docker compose -f docker-compose-dev.yaml --env-file .dev.env up -d
 
   stop-docker-bot:
     desc: Stop docker container telegram bot
     cmds:
       - docker compose -f docker-compose-dev.yaml down
 
-  test:
-    desc: Run tests
-    cmds:
-      - python -m coverage run
-      - python -m coverage report -m
-      - python -m coverage html
+  # test:
+  #   desc: Run tests
+  #   cmds:
+  #     - python -m coverage run
+  #     - python -m coverage report -m
+  #     - python -m coverage html
 
   file-id-bot:
     desc: Run file_id sender locally
@@ -125,5 +117,4 @@ tasks:
   test-deploy:
     desc: Deploy locally
     cmds:
-      # - act -j 'test' --var-file .vars --secret-file .secrets -e event.json
       - act --var-file .vars --secret-file .secrets -e event.json

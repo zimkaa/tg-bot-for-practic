@@ -3,20 +3,21 @@
 ###########
 FROM python:3.11.5-slim as builder
 
-ARG ENVIRONMENT
+# ARG ENVIRONMENT
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PYTHONHASHSEED=random \
-    PIP_NO_CACHE_DIR=off \
-    PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100 \
-    ENVIRONMENT=${ENVIRONMENT} \
-    POETRY_VERSION=1.6.1 \
-    POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=1 \
-    POETRY_VIRTUALENVS_CREATE=1 \
-    POETRY_CACHE_DIR=/tmp/poetry_cache
+    PYTHONUNBUFFERED=1
+    # PYTHONUNBUFFERED=1 \
+    # PYTHONHASHSEED=random \
+    # PIP_NO_CACHE_DIR=off \
+    # PIP_DISABLE_PIP_VERSION_CHECK=on \
+    # PIP_DEFAULT_TIMEOUT=100 \
+    # ENVIRONMENT=${ENVIRONMENT} \
+    # POETRY_VERSION=1.6.1 \
+    # POETRY_NO_INTERACTION=1 \
+    # POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    # POETRY_VIRTUALENVS_CREATE=1 \
+    # POETRY_CACHE_DIR=/tmp/poetry_cache
 
 # RUN addgroup --system appgroup
 # RUN adduser --system --shell /bin/sh --disabled-login --disabled-password --ingroup appgroup appuser
