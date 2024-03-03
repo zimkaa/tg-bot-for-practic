@@ -106,7 +106,8 @@ tasks:
   test-deploy:
     desc: Deploy locally
     cmds:
-      - act --var-file .vars --secret-file .secrets -e event.json
+      # - act -j 'docker-build-push' --container-architecture linux/amd64 --var-file .vars --secret-file .secrets -e event.json
+      - act --container-architecture linux/amd64 --var-file .vars --secret-file .secrets -e event.json
 
   run-build-container:
     desc: Run locally container
