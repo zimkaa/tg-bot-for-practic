@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from dependency_injector.wiring import Provide
 from dependency_injector.wiring import inject
 from pyrogram.client import Client
@@ -15,7 +17,7 @@ from src.telegram.templates import text as templates_text
 
 
 class FethiyeEndpoint(PrivateCommandEndpoint):
-    commands: list[str] = [
+    commands: ClassVar[list[str]] = [
         constants.SOUTH,
     ]
 

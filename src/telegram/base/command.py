@@ -1,5 +1,4 @@
-from typing import List
-from typing import Optional
+from typing import ClassVar
 
 from pyrogram import filters
 from pyrogram.filters import Filter
@@ -8,8 +7,8 @@ from .message import MessageEndpoint
 
 
 class PrivateCommandEndpoint(MessageEndpoint):
-    commands: List[str] = []
+    commands: ClassVar[list[str]] = []
 
     @classmethod
-    def get_filters(cls) -> Optional[Filter]:
+    def get_filters(cls: type["PrivateCommandEndpoint"]) -> Filter | None:
         return ~filters.forwarded & filters.private & filters.command(commands=cls.commands)

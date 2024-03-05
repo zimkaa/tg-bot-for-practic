@@ -15,7 +15,7 @@ class CallbackQueryEndpoint(BaseEndpoint):
         return CallbackQueryHandler(callback=self.callback, filters=self.get_filters())
 
     @classmethod
-    def get_filters(cls) -> Filter | None:
+    def get_filters(cls: type["CallbackQueryEndpoint"]) -> Filter | None:
         if not cls.callback_query_name:
             return None
         return create(filter_callback, callback_query_name=cls.callback_query_name)

@@ -1,6 +1,7 @@
+from __future__ import annotations
 import asyncio
 from time import sleep
-from typing import Optional
+from typing import TYPE_CHECKING
 
 from pyrogram import enums
 from pyrogram import filters
@@ -10,9 +11,12 @@ from pyrogram.errors import FloodWait
 from pyrogram.filters import Filter
 from pyrogram.filters import create
 from pyrogram.handlers.message_handler import MessageHandler
-from pyrogram.types import Message
 
 from src.config import settings
+
+
+if TYPE_CHECKING:
+    from pyrogram.types import Message
 
 
 TEXT = """
@@ -26,7 +30,7 @@ file_id=`{file_id}`
 """
 
 
-async def filter_file_or_photo(_, __, message: Message) -> bool:
+async def filter_file_or_photo(flt, client, message: Message) -> bool:
     if message.media:
         return message.media in (enums.MessageMediaType.DOCUMENT, enums.MessageMediaType.PHOTO)
     return False
@@ -68,7 +72,7 @@ class EchoFileIDMessage:
         return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore  # noqa: PGH003
 
     @classmethod
-    def get_filters(cls) -> Optional[Filter]:
+    def get_filters(cls: type["EchoFileIDMessage"]) -> Filter | None:
         return file_or_photo_filter & filters.private
 
     async def callback(

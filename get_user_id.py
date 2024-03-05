@@ -1,5 +1,6 @@
 import asyncio
 from time import sleep
+from typing import ClassVar
 
 from pyrogram import filters
 from pyrogram import idle
@@ -49,7 +50,7 @@ class EchoMessage:
         return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore  # noqa: PGH003
 
     @classmethod
-    def get_filters(cls) -> Filter | None:
+    def get_filters(cls: type["EchoMessage"]) -> Filter | None:
         return filters.text & filters.private
 
     async def callback(
@@ -77,7 +78,7 @@ class EchoMessage:
 
 
 class StartEchoEndpoint:
-    commands: list[str] = [
+    commands: ClassVar[list[str]] = [
         constants.START,
     ]
 
@@ -85,7 +86,7 @@ class StartEchoEndpoint:
         return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore  # noqa: PGH003
 
     @classmethod
-    def get_filters(cls) -> Filter | None:
+    def get_filters(cls: type["StartEchoEndpoint"]) -> Filter | None:
         return ~filters.forwarded & filters.private & filters.command(commands=cls.commands)
 
     async def callback(
