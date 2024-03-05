@@ -85,6 +85,7 @@ ignore = [
     "FA100",
     "ANN102",
     "RUF012",
+    "TRY401",
 ]
 exclude = [
     "get_file_id_for_bot.py",

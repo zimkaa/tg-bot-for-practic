@@ -20,7 +20,7 @@ class MessageEndpoint(BaseEndpoint):
                 message=message,
             )
         except Exception as exc:
-            self.logger.exception(exc)  # noqa: TRY401
+            self.logger.exception(exc)
             await message.reply(
                 # text=jinja.get_template("unknown_error.jinja").render(),
                 text="Error",

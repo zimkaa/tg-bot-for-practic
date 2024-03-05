@@ -9,7 +9,7 @@ from .endpoint import BaseEndpoint
 
 
 class CallbackQueryEndpoint(BaseEndpoint):
-    callback_query_name: str | None = None
+    callback_query_name: str
 
     def to_telegram_handler(self) -> CallbackQueryHandler:
         return CallbackQueryHandler(callback=self.callback, filters=self.get_filters())
@@ -31,7 +31,7 @@ class CallbackQueryEndpoint(BaseEndpoint):
                 callback_query=callback_query,
             )
         except Exception as exc:
-            self.logger.exception(exc)  # noqa: TRY401
+            self.logger.exception(exc)
             await callback_query.answer(
                 text="Server error.",
                 show_alert=True,
