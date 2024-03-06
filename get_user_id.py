@@ -1,17 +1,22 @@
+from __future__ import annotations
 import asyncio
 from time import sleep
+from typing import TYPE_CHECKING
 from typing import ClassVar
 
 from pyrogram import filters
 from pyrogram import idle
 from pyrogram.client import Client
 from pyrogram.errors import FloodWait
-from pyrogram.filters import Filter
 from pyrogram.handlers.message_handler import MessageHandler
-from pyrogram.types import Message
 
 from src.config import constants
 from src.config import settings
+
+
+if TYPE_CHECKING:
+    from pyrogram.filters import Filter
+    from pyrogram.types import Message
 
 
 TEXT = """
@@ -50,7 +55,7 @@ class EchoMessage:
         return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore  # noqa: PGH003
 
     @classmethod
-    def get_filters(cls: type["EchoMessage"]) -> Filter | None:
+    def get_filters(cls: type[EchoMessage]) -> Filter | None:
         return filters.text & filters.private
 
     async def callback(
@@ -86,7 +91,7 @@ class StartEchoEndpoint:
         return MessageHandler(callback=self.callback, filters=self.get_filters())  # type: ignore  # noqa: PGH003
 
     @classmethod
-    def get_filters(cls: type["StartEchoEndpoint"]) -> Filter | None:
+    def get_filters(cls: type[StartEchoEndpoint]) -> Filter | None:
         return ~filters.forwarded & filters.private & filters.command(commands=cls.commands)
 
     async def callback(

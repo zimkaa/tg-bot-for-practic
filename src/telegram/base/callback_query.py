@@ -1,11 +1,17 @@
-from pyrogram.client import Client
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
 from pyrogram.filters import Filter
 from pyrogram.filters import create
 from pyrogram.handlers.callback_query_handler import CallbackQueryHandler
-from pyrogram.types import CallbackQuery
 
 from .custom_filters import filter_callback
 from .endpoint import BaseEndpoint
+
+
+if TYPE_CHECKING:
+    from pyrogram.client import Client
+    from pyrogram.types import CallbackQuery
 
 
 class CallbackQueryEndpoint(BaseEndpoint):
@@ -15,7 +21,7 @@ class CallbackQueryEndpoint(BaseEndpoint):
         return CallbackQueryHandler(callback=self.callback, filters=self.get_filters())
 
     @classmethod
-    def get_filters(cls: type["CallbackQueryEndpoint"]) -> Filter | None:
+    def get_filters(cls: type[CallbackQueryEndpoint]) -> Filter | None:
         if not cls.callback_query_name:
             return None
         return create(filter_callback, callback_query_name=cls.callback_query_name)

@@ -69,21 +69,17 @@ cache-dir = "/tmp/ruff_cache"
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-    "D1",
-    "D203",
-    "D213",
-    "FA102",
-    "ANN101",
-    "S101",
+    "D1",  # docstring
+    "D203",  # docstring
+    "D213",  # docstring
+    "S101",  # use of assert
+    "ANN101",  # self annotation
+    "TRY401",  # exeption logging
+    # "FA102",  # from __future__ import annotations
     # projec specific
     "TD002",
     "TD003",
     "FIX002",
-    "TRY401",
-    # "ANN001",
-    # "E501",
-    # "ERA001",
-    # "RUF012",
 ]
 exclude = [
     "get_file_id_for_bot.py",
