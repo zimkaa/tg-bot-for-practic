@@ -1,4 +1,13 @@
 {
+    "cSpell.ignorePaths": [
+        "package-lock.json",
+        "node_modules",
+        "vscode-extension",
+        ".git/objects",
+        ".vscode",
+        ".vscode-insiders",
+        "src/config/photo_ids.py",
+    ],
     "cSpell.words": [
         "cscxpakym",
         "FETHIE",

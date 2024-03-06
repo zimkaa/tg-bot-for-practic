@@ -28,12 +28,12 @@ class Settings(BaseSettings):
     TELEGRAM_API_ID: int = Field(default=0000000000)
     TELEGRAM_API_HASH: str = Field(default="default_token")
 
-    @computed_field  # type: ignore  # noqa: PGH003
+    @computed_field  # type: ignore[misc]
     @property
     def APP_VERSION(self) -> str:  # noqa: N802
         return get_version()
 
-    @computed_field  # type: ignore  # noqa: PGH003
+    @computed_field  # type: ignore[misc]
     @property
     def APP_NAME(self) -> str:  # noqa: N802
         return get_name()
