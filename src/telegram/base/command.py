@@ -1,6 +1,5 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
-from typing import ClassVar
 
 from pyrogram import filters
 
@@ -8,6 +7,8 @@ from .message import MessageEndpoint
 
 
 if TYPE_CHECKING:
+    from typing import ClassVar
+
     from pyrogram.filters import Filter
 
 
