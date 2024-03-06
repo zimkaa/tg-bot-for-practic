@@ -1,12 +1,10 @@
-from typing import ClassVar
+from __future__ import annotations
+from typing import TYPE_CHECKING
 
 from dependency_injector.wiring import Provide
 from dependency_injector.wiring import inject
-from pyrogram.client import Client
-from pyrogram.types import CallbackQuery
 from pyrogram.types import InlineKeyboardButton
 from pyrogram.types import InlineKeyboardMarkup
-from pyrogram.types import Message
 
 from src.config import constants
 from src.config import photo_ids
@@ -14,6 +12,14 @@ from src.deps.main import MainContainer
 from src.telegram.base import CallbackQueryEndpoint
 from src.telegram.base import PrivateCommandEndpoint
 from src.telegram.templates import text as templates_text
+
+
+if TYPE_CHECKING:
+    from typing import ClassVar
+
+    from pyrogram.client import Client
+    from pyrogram.types import CallbackQuery
+    from pyrogram.types import Message
 
 
 class StartEndpoint(PrivateCommandEndpoint):
