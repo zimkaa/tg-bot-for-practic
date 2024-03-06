@@ -1,10 +1,10 @@
-from logging import Logger
+from __future__ import annotations
 from time import sleep
+from typing import TYPE_CHECKING
 
 from dependency_injector.wiring import Provide
 from dependency_injector.wiring import inject
 from pyrogram import idle
-from pyrogram.client import Client as TelegramClient
 from pyrogram.errors import FloodWait
 from pyrogram.types import BotCommand
 
@@ -21,6 +21,12 @@ from src.telegram.commands.start import MenuCallbackQueryEndpoint
 from src.telegram.commands.start import MenuEndpoint
 from src.telegram.commands.start import StartEndpoint
 from src.telegram.messages.resend import ResendFile
+
+
+if TYPE_CHECKING:
+    from logging import Logger
+
+    from pyrogram.client import Client as TelegramClient
 
 
 @inject
