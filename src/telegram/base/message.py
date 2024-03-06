@@ -1,8 +1,14 @@
-from pyrogram.client import Client
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
 from pyrogram.handlers.message_handler import MessageHandler
-from pyrogram.types import Message
 
 from .endpoint import BaseEndpoint
+
+
+if TYPE_CHECKING:
+    from pyrogram.client import Client
+    from pyrogram.types import Message
 
 
 class MessageEndpoint(BaseEndpoint):
@@ -22,7 +28,6 @@ class MessageEndpoint(BaseEndpoint):
         except Exception as exc:
             self.logger.exception(exc)
             await message.reply(
-                # text=jinja.get_template("unknown_error.jinja").render(),
                 text="Error",
                 reply_to_message_id=message.id,
             )
