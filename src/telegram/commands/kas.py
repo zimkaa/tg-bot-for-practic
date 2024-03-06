@@ -1,6 +1,5 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
-from typing import ClassVar
 
 from dependency_injector.wiring import Provide
 from dependency_injector.wiring import inject
@@ -16,6 +15,8 @@ from src.telegram.templates import text as templates_text
 
 
 if TYPE_CHECKING:
+    from typing import ClassVar
+
     from pyrogram.client import Client
     from pyrogram.types import CallbackQuery
     from pyrogram.types import Message

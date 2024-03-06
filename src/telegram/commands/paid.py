@@ -1,12 +1,18 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
 from dependency_injector.wiring import Provide
 from dependency_injector.wiring import inject
-from pyrogram.client import Client
-from pyrogram.types import CallbackQuery
 
 from src.config import constants
 from src.deps.main import MainContainer
 from src.telegram.base.callback_query import CallbackQueryEndpoint
 from src.telegram.templates import text as templates_text
+
+
+if TYPE_CHECKING:
+    from pyrogram.client import Client
+    from pyrogram.types import CallbackQuery
 
 
 class PaidCallbackQueryEndpoint(CallbackQueryEndpoint):
