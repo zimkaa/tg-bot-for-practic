@@ -1,16 +1,22 @@
+from __future__ import annotations
 from abc import ABC
-from logging import Logger
+from typing import TYPE_CHECKING
 
 from dependency_injector.wiring import Provide
 from dependency_injector.wiring import inject
-from pyrogram.client import Client
-from pyrogram.filters import Filter
-from pyrogram.handlers.handler import Handler
 from pyrogram.types import KeyboardButton
 from pyrogram.types import Message
 from pyrogram.types import ReplyKeyboardMarkup
 
 from src.deps.main import MainContainer
+
+
+if TYPE_CHECKING:
+    from logging import Logger
+
+    from pyrogram.client import Client
+    from pyrogram.filters import Filter
+    from pyrogram.handlers.handler import Handler
 
 
 class BaseEndpoint(ABC):
@@ -28,7 +34,7 @@ class BaseEndpoint(ABC):
         raise NotImplementedError
 
     @classmethod
-    def get_filters(cls) -> Filter | None:
+    def get_filters(cls: type[BaseEndpoint]) -> Filter | None:
         return cls.filters
 
     async def _request_contacts(

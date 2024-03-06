@@ -83,8 +83,6 @@ ignore = [
     # "ANN001",
     # "E501",
     # "ERA001",
-    # "FA100",
-    # "ANN102",
     # "RUF012",
 ]
 exclude = [
