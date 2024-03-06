@@ -15,6 +15,7 @@ from src.telegram.templates import text as templates_text
 
 
 if TYPE_CHECKING:
+    from logging import Logger
     from typing import ClassVar
 
     from pyrogram.client import Client
@@ -33,13 +34,15 @@ class KasEndpoint(PrivateCommandEndpoint):
         client: Client,
         message: Message,
         admin_id: str = Provide[MainContainer.config.TELEGRAM_ADMIN_ID],
+        logger: Logger = Provide[MainContainer.config.LOGGER],
     ) -> None:
         try:
             await client.send_photo(
                 chat_id=message.from_user.id,
                 photo=photo_ids.KAS,
             )
-        except Exception:  # noqa: BLE001
+        except Exception as exc:
+            logger.exception("Error: %s", exc)
             await client.send_message(
                 chat_id=admin_id,
                 text=templates_text.PHOTO_PROBLEM,
@@ -71,6 +74,7 @@ class KasCallbackQueryEndpoint(CallbackQueryEndpoint):
         client: Client,
         callback_query: CallbackQuery,
         admin_id: str = Provide[MainContainer.config.TELEGRAM_ADMIN_ID],
+        logger: Logger = Provide[MainContainer.config.LOGGER],
     ) -> None:
         await client.answer_callback_query(callback_query.id)
         try:
@@ -78,7 +82,8 @@ class KasCallbackQueryEndpoint(CallbackQueryEndpoint):
                 chat_id=callback_query.from_user.id,
                 photo=photo_ids.KAS,
             )
-        except Exception:  # noqa: BLE001
+        except Exception as exc:
+            logger.exception("Error: %s", exc)
             await client.send_message(
                 chat_id=admin_id,
                 text=templates_text.PHOTO_PROBLEM,

@@ -1,5 +1,6 @@
 from __future__ import annotations
 import asyncio
+import logging
 from time import sleep
 from typing import TYPE_CHECKING
 from typing import ClassVar
@@ -68,7 +69,8 @@ class EchoMessage:
                 client=client,
                 message=message,
             )
-        except Exception:  # noqa: BLE001
+        except Exception as exc:
+            logging.exception("Error: %s", exc)
             await message.reply(
                 text="Error echo text",
                 reply_to_message_id=message.id,
@@ -104,7 +106,8 @@ class StartEchoEndpoint:
                 client=client,
                 message=message,
             )
-        except Exception:  # noqa: BLE001
+        except Exception as exc:
+            logging.exception("Error: %s", exc)
             await message.reply(
                 text="Error echo command",
                 reply_to_message_id=message.id,
