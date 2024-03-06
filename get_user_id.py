@@ -3,7 +3,6 @@ import asyncio
 import logging
 from time import sleep
 from typing import TYPE_CHECKING
-from typing import ClassVar
 
 from pyrogram import filters
 from pyrogram import idle
@@ -16,6 +15,8 @@ from src.config import settings
 
 
 if TYPE_CHECKING:
+    from typing import ClassVar
+
     from pyrogram.filters import Filter
     from pyrogram.types import Message
 
