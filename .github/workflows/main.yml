@@ -5,14 +5,26 @@ on:
     branches:
       - 'main'
 
-  # pull_request:
-  #   branches:
-  #     - '*'
+  pull_request:
+    branches:
+      - 'main'
 
 jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.11'
+    - uses: pre-commit/action@v3.0.1
+      with:
+        extra_args: -c .pre-commit-config-action.yaml
+
   docker-build-push:
     if: ${{ !github.event.act }}
     runs-on: ubuntu-latest
+    needs: pre-commit
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
