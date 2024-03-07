@@ -15,7 +15,6 @@ __pycache__/
 my.db
 *.log.zip
 my_install.sh
-.pre-commit-config.yaml
 .DS_Store
 .env
 .dev.env
