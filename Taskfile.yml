@@ -1,7 +1,5 @@
 version: "3"
 
-# dotenv: ['.env', '{{.ENV}}/.env.', '{{.HOME}}/.env']
-
 tasks:
   default:
     - task: help
@@ -39,6 +37,7 @@ tasks:
     desc: "Update versions .pre-commit-config.yaml and poetry update"
     cmds:
       - poetry update
+      - task generate-pre-commit-config
       - pre-commit autoupdate
       - echo "The pre-commit updated."
 
@@ -104,7 +103,7 @@ tasks:
       - python ./get_user_id.py
 
   test-deploy:
-    desc: Deploy locally
+    desc: Action test locally
     cmds:
       # - act -j 'docker-build-push' --container-architecture linux/amd64 --var-file .vars --secret-file .secrets -e event.json
       - act --container-architecture linux/amd64 --var-file .vars --secret-file .secrets -e event.json
