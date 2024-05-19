@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "sales"
-version = "0.1.0"
+name = "sales_bot"
+version = "1.0.0"
 description = ""
 authors = ["Anton Zimin <zimkaa87@gmail.com>"]
 readme = "README.md"
@@ -11,49 +11,98 @@ pyrogram = "^2.0.106"
 pydantic = "^2.4.0"
 pydantic-settings = "^2.0.3"
 dependency-injector = "^4.41.0"
-
+tgcrypto = "^1.2.5"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.9.1"
 mypy = "^1.5.1"
-isort = "^5.12.0"
 pytest = "^7.4.2"
-pylint = "^2.17.6"
-safety = "^2.3.5"
-ruff = "^0.0.291"
 coverage = "^7.3.1"
-autoflake = "^2.2.1"
-bandit = "^1.7.5"
 pre-commit = "^3.4.0"
-
-[tool.pytest.ini_options]
-addopts = "-vvv"
-testpaths = [
-    "tests",
-]
+ruff = "^0.3.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.bandit]
-exclude_dirs = ["venv", "tests"]
+[tool.pytest.ini_options]
+addopts = "-vvv"
+cache_dir = "/tmp/pytest_cache"
+testpaths = [
+    "tests",
+]
+
+[tool.ruff]
+cache-dir = "/tmp/ruff_cache"
+fix = true
+line-length = 120
+unsafe-fixes = true
+exclude = [
+    "alembic/",
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D1",  # docstring
+    "D203",  # docstring
+    "D213",  # docstring
+    "S101",  # use of assert
+    "ANN101",  # self annotation
+    "TRY401",  # exeption logging
+    # "FA102",  # from __future__ import annotations
+    # projec specific
+    "TD002",
+    "TD003",
+    "FIX002",
+]
+exclude = [
+    "get_file_id_for_bot.py",
+    "src/telegram/templates/text.py",
+    "src/telegram/base/custom_filters/callback_filter.py"
+]
+
+[tool.ruff.lint.isort]
+no-lines-before = ["standard-library", "local-folder"]
+known-third-party = []
+known-local-folder = ["whole_app"]
+lines-after-imports = 2
+force-single-line = true
+
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/*.py" = ["ANN101", "S101", "S311"]
+
+[tool.ruff.format]
+quote-style = "double"
 
 [tool.mypy]
 python_version = "3.11"
+cache_dir = "/tmp/mypy_cache"
 ignore_missing_imports = true
-exclude = ["venv/", "alembic/"]
-
-[tool.isort]
-line_length = 120
-profile = "black"
-multi_line_output = 7
-lines_after_imports = 2
-force_single_line = true
-
-[tool.ruff]
-line-length = 120
-exclude = ["__init__.py", "alembic", ".venv"]
-
-[tool.black]
-line-length = 120
+strict = false
+exclude = ["~/.pyenv/*", ".venv/", "alembic/"]

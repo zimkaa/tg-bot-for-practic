@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  bot:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "${APP_NAME}"
+    image: "zimkaa/${APP_NAME}:${APP_VERSION}"
+    restart: unless-stopped
+    env_file: .dev.env

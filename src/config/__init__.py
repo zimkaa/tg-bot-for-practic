@@ -1,4 +1,4 @@
-from .main import settings
+from .settings import settings
 
 
 __all__ = [

@@ -1,9 +1,10 @@
-from pyrogram.types import CallbackQuery
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pyrogram.client import Client
+    from pyrogram.types import CallbackQuery
 
 
-async def filter_callback(self, __, call: CallbackQuery) -> bool:
+async def filter_callback(self, client: Client, call: CallbackQuery) -> bool:
     return self.callback_query_name in call.data
-
-
-async def filter_multi_callback(self, __, call: CallbackQuery) -> bool:
-    return call.data in self.multi_callback_query_name

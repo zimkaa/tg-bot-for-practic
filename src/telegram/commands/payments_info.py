@@ -1,11 +1,24 @@
-from pyrogram.client import Client
-from pyrogram.types import CallbackQuery
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
 from pyrogram.types import InlineKeyboardButton
 from pyrogram.types import InlineKeyboardMarkup
 
 from src.config import constants
 from src.telegram.base.callback_query import CallbackQueryEndpoint
+from src.telegram.errors.callback import CallbackDataError
 from src.telegram.templates import text as templates_text
+
+
+if TYPE_CHECKING:
+    from pyrogram.client import Client
+    from pyrogram.types import CallbackQuery
+
+
+price_strategy = {
+    constants.KAS: templates_text.PRICE_KAS,
+    constants.SOUTH: templates_text.PRICE_SOUTH,
+}
 
 
 class PaymentsInfoCallbackQueryEndpoint(CallbackQueryEndpoint):
@@ -15,25 +28,28 @@ class PaymentsInfoCallbackQueryEndpoint(CallbackQueryEndpoint):
         self,
         client: Client,
         callback_query: CallbackQuery,
-    ) -> None:  # noqa: U100
+    ) -> None:
         await client.answer_callback_query(callback_query.id)
         if not isinstance(callback_query.data, str):
-            raise Exception("Callback query data is not str")
-        city = callback_query.data.replace("payment_", "")
-        template = templates_text.PAYMENTS_INFO
+            msg = "Callback query data is not str"
+            raise CallbackDataError(msg)
+        place = callback_query.data.replace("payment_", "")
+        price = price_strategy[place]
+        template = templates_text.PAYMENTS_INFO.format(price=price)
         await callback_query.message.reply(
             text=template,
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text=constants.RUS_CARD, callback_data=f"{constants.RUS_PAYMENT}_{city}"),
-                        InlineKeyboardButton(text=constants.TRY_CARD, callback_data=f"{constants.TRY_PAYMENT}_{city}"),
+                        InlineKeyboardButton(text=constants.RUS_CARD, callback_data=f"{constants.RUS_PAYMENT}_{place}"),
+                        InlineKeyboardButton(text=constants.TRY_CARD, callback_data=f"{constants.TRY_PAYMENT}_{place}"),
                     ],
                     [
                         InlineKeyboardButton(
-                            text=constants.U_MONEY, callback_data=f"{constants.U_MONEY_PAYMENT}_{city}"
+                            text=constants.CRYPTO,
+                            callback_data=f"{constants.CRYPTO_PAYMENT}_{place}",
                         ),
-                        InlineKeyboardButton(text=constants.CRYPTO, callback_data=f"{constants.CRYPTO_PAYMENT}_{city}"),
+                        InlineKeyboardButton(text=constants.OTHER, callback_data=f"{constants.OTHER_PAYMENT}_{place}"),
                     ],
                 ],
             ),

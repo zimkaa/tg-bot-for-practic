@@ -1,52 +1,42 @@
-FROM python:3.11.5-slim-bookworm as builder
+###########
+# BUILDER #
+###########
+FROM python:3.11.5-slim as builder
 
-ARG ENVIRONMENT
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONHASHSEED=random
-ENV PIP_NO_CACHE_DIR=off
-ENV PIP_DISABLE_PIP_VERSION_CHECK=on
-ENV PIP_DEFAULT_TIMEOUT=100
-ENV POETRY_VERSION=1.6.1
-ENV ENVIRONMENT=${ENVIRONMENT}
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    build-essential \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN addgroup --system appgroup
-RUN adduser --system --shell /bin/sh --disabled-login --disabled-password --ingroup appgroup appuser
+WORKDIR /app
 
-WORKDIR /home/appuser/app/
+COPY ./pyproject.toml ./poetry.lock /app/
 
-RUN chown -R appuser:appgroup /home/appuser/app
+RUN pip install poetry && \
+    poetry export -f requirements.txt --output requirements.txt --without-hashes --without dev && \
+    pip install --no-cache-dir --upgrade -r requirements.txt
 
-USER appuser
+###########
+## IMAGE ##
+###########
+FROM python:3.11.5-slim
 
-RUN python -m venv /home/appuser/app/.venv
-ENV PATH="/home/appuser/app/.venv/bin:$PATH"
-
-RUN pip install "poetry==$POETRY_VERSION"
-
-COPY poetry.lock pyproject.toml /home/appuser/app/
-
-RUN poetry config virtualenvs.create false \
-  && poetry install --only=main --no-interaction --no-ansi --no-root
-
-
-FROM python:3.11.5-slim-bookworm
-
-RUN addgroup --system appgroup
-RUN adduser --system --shell /bin/sh --disabled-login --disabled-password --ingroup appgroup appuser
-
-USER appuser
 WORKDIR /home/appuser/app
 
-COPY --chown=appuser:appgroup --from=builder /home/appuser/app/.venv /home/appuser/app/.venv
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 
-ENV PATH="/home/appuser/app/.venv/bin:$PATH"
+COPY . /home/appuser/app
 
-COPY --chown=appuser:appgroup ./src /home/appuser/app/
+RUN groupadd -r appgroup && \
+    useradd -r -g appgroup appuser && \
+    chown -R appuser:appgroup /home/appuser/app
 
-COPY --chown=appuser:appgroup ./entrypoint.sh /home/appuser/app/
+USER appuser
 
-EXPOSE 8000
+RUN chmod +x /home/appuser/app/entrypoint.sh
 
 CMD ["./entrypoint.sh"]

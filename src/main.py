@@ -1,9 +1,10 @@
+from __future__ import annotations
 from time import sleep
+from typing import TYPE_CHECKING
 
 from dependency_injector.wiring import Provide
 from dependency_injector.wiring import inject
 from pyrogram import idle
-from pyrogram.client import Client as TelegramClient
 from pyrogram.errors import FloodWait
 from pyrogram.types import BotCommand
 
@@ -16,29 +17,41 @@ from src.telegram.commands.payment import PaymentCallbackQueryEndpoint
 from src.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
 from src.telegram.commands.south import FethiyeCallbackQueryEndpoint
 from src.telegram.commands.south import FethiyeEndpoint
-
-# from src.telegram.commands.payments_info import PaymentsInfoCallbackQueryEndpoint
-# from src.telegram.commands.special_offer import OfferCallbackQueryEndpoint, OfferEndpoint
-from src.telegram.commands.start import StartCallbackQueryEndpoint
+from src.telegram.commands.start import MenuCallbackQueryEndpoint
+from src.telegram.commands.start import MenuEndpoint
 from src.telegram.commands.start import StartEndpoint
+from src.telegram.messages.resend import ResendFile
+
+
+if TYPE_CHECKING:
+    from logging import Logger
+
+    from pyrogram.client import Client as TelegramClient
 
 
 @inject
-async def main(telegram: TelegramClient = Provide[MainContainer.telegram]) -> None:
+async def main(
+    telegram: TelegramClient = Provide[MainContainer.telegram],
+    app_version: str = Provide[MainContainer.config.APP_VERSION],
+    logger: Logger = Provide[MainContainer.config.LOGGER],
+) -> None:
     """Run bot."""
+    logger.getChild(__name__)
+    logger.info("Bot version: %s", app_version)
     telegram.add_handler(StartEndpoint().to_telegram_handler())
 
+    telegram.add_handler(MenuEndpoint().to_telegram_handler())
     telegram.add_handler(KasEndpoint().to_telegram_handler())
     telegram.add_handler(FethiyeEndpoint().to_telegram_handler())
-    # telegram.add_handler(PaymentsEndpoint().to_telegram_handler())
-    # telegram.add_handler(OfferEndpoint().to_telegram_handler())
 
     telegram.add_handler(PaymentCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(PaymentsInfoCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(KasCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(FethiyeCallbackQueryEndpoint().to_telegram_handler())
     telegram.add_handler(PaidCallbackQueryEndpoint().to_telegram_handler())
-    telegram.add_handler(StartCallbackQueryEndpoint().to_telegram_handler())
+    telegram.add_handler(MenuCallbackQueryEndpoint().to_telegram_handler())
+
+    telegram.add_handler(ResendFile().to_telegram_handler())
 
     await telegram.start()
     commands = [
@@ -55,7 +68,7 @@ async def main(telegram: TelegramClient = Provide[MainContainer.telegram]) -> No
         # TODO: Logging
         # TODO: BOT INFO
         if isinstance(exc.value, int):
-            print(f"Wait {exc.value} seconds.")
-            sleep(float(exc.value))
+            logger.info("Wait %s seconds.", exc.value)
+            sleep(float(exc.value))  # noqa: ASYNC101
     finally:
         await telegram.stop()

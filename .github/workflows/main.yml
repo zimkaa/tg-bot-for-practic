@@ -1,0 +1,127 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - 'main'
+
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.11'
+    - uses: pre-commit/action@v3.0.1
+      with:
+        extra_args: -c .pre-commit-config-action.yaml
+
+  docker-build-push:
+    if: ${{ !github.event.act }}
+    runs-on: ubuntu-latest
+    needs: pre-commit
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Get the version from file
+        run: cat build_version >> $GITHUB_ENV
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Get the version from file
+        run: cat build_version >> $GITHUB_ENV
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
+
+  docker-run:
+    if: ${{ !github.event.act }}
+    runs-on: ubuntu-latest
+    needs: docker-build-push
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Get the version from file
+      run: cat build_version >> $GITHUB_ENV
+    - name: Deploy using ssh
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        passphrase: ${{ secrets.KEY_PASSPHRASE }}
+        port: 22
+        script: |
+          docker pull ${{ vars.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
+          docker stop $(docker ps -q)
+          docker run --env-file ~/sales_bot/.env --name "${{ env.APP_NAME }}-${{ env.APP_VERSION }}" -d ${{ vars.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
+
+  # test:
+  #   runs-on: ubuntu-latest
+  #   if: ${{ !github.event.act }}
+  #   steps:
+  #   - name: Connect using ssh
+  #     uses: appleboy/ssh-action@v1.0.3
+  #     with:
+  #       host: ${{ secrets.SERVER_HOST }}
+  #       username: ${{ secrets.SERVER_USER }}
+  #       key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #       port: 22
+  #       script: |
+  #         echo "Docker user: ${{ vars.DOCKERHUB_USERNAME }}"
+  #         echo "Server host: ${{ secrets.SERVER_HOST }}"
+  #         echo "Server user: ${{ secrets.SERVER_USER }}"
+  #         echo "Server key: ${{ secrets.SSH_PRIVATE_KEY }}"
+
+  # # test2:
+  # #   runs-on: ubuntu-latest
+  # #   steps:
+  # #   - name: Connect using ssh
+  # #     if: ${{ !env.ACT }}
+  # #     uses: appleboy/ssh-action@v1.0.3
+  # #     with:
+  # #       host: ${{ secrets.SERVER_HOST }}
+  # #       username: ${{ secrets.SERVER_USER }}
+  # #       key: ${{ secrets.SSH_PRIVATE_KEY }}
+  # #       port: 22
+  # #       script: |
+  # #         echo "Docker user: ${{ vars.DOCKERHUB_USERNAME }}"
+  # #         echo "Server host: ${{ secrets.SERVER_HOST }}"
+  # #         echo "Server user: ${{ secrets.SERVER_USER }}"
+  # #         echo "Server key: ${{ secrets.SSH_PRIVATE_KEY }}"
+
+  # test3:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v2
+  #   - name: Get the version from file
+  #     run: cat build_version >> $GITHUB_ENV
+  #   - name: Connect using ssh
+  #     uses: appleboy/ssh-action@v1.0.3
+  #     with:
+  #       host: ${{ secrets.SERVER_HOST }}
+  #       username: ${{ secrets.SERVER_USER }}
+  #       key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #       passphrase: ${{ secrets.KEY_PASSPHRASE }}
+  #       port: 22
+  #       script: |
+  #         echo "Docker user: ${{ vars.DOCKERHUB_USERNAME }}"
+  #         echo "Docker user: ${{ env.APP_VERSION }}"
+  #         ls -la
+  #         cd ~/test_action/
+  #         pwd
+  #         # git status
