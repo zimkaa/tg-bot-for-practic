@@ -1,5 +1,6 @@
 from __future__ import annotations
 from abc import ABC
+from abc import abstractmethod
 from typing import TYPE_CHECKING
 
 from dependency_injector.wiring import Provide
@@ -30,6 +31,7 @@ class BaseEndpoint(ABC):
         super().__init__()
         self.logger = logger.getChild(self.__class__.__name__)
 
+    @abstractmethod
     def to_telegram_handler(self) -> Handler:
         raise NotImplementedError
 
